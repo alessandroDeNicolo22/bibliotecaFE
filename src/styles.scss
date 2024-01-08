@@ -1,0 +1,40 @@
+/* You can add global styles to this file, and also import other style files */
+@import "primeng/resources/themes/lara-light-blue/theme.css";
+@import "primeng/resources/primeng.css";
+@import "primeicons/primeicons.css";
+
+html,
+body {
+  height: 120%;
+}
+
+body {
+  margin: 0;
+ /*  font-family: Roboto, "Helvetica Neue", sans-serif;  */
+  font-family: 'Rockwill', sans-serif;
+}
+
+.testo-centrale {
+  text-align: center;
+}
+@font-face {
+  font-family: 'Rockwill';
+  src: url('/assets/fonts/Rockwill.ttf') format('truetype');
+  /* Aggiungi altre varianti del font come font-weight e font-style se necessario */
+}
+
+.header{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.container-fluid {
+  padding-top: 5%;;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 90%;
+}
+
+
+

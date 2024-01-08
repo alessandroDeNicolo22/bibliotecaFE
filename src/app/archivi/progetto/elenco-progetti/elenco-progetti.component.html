@@ -1,0 +1,45 @@
+<div class="container-fluid">
+    <div class="row">
+      <div class="col">
+        <p-toast position="top-center" [style]="{'width': '30%', 'font-weight':'bold'}"></p-toast>
+        <p-table [columns]="cols" [value]="elencoProgetti" [scrollHeight]="'400px'" [scrollable]="true" styleClass="p-datatable-striped" [tableStyle]="{ 'min-width': '50rem', 'width':'100%' }">
+            <ng-template pTemplate="caption">
+                <div class="header" >
+                    <h1 style="font-weight: bold;">Elenco Progetti</h1>
+                </div>
+            </ng-template>
+          <ng-template pTemplate="header" let-columns>
+            <tr>
+              <th *ngFor="let col of columns" style="font-size: x-large;">
+                {{ col.header }}
+                  <p-button *ngIf="col.header === '' && col.field ==='delete'" icon="pi pi-plus" pTooltip="Aggiungi" routerLink="../nuovo"  styleClass="p-button-rounded p-button-success p-button-outlined">
+                  </p-button>
+              </th>
+              
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-rowData let-columns="columns">
+            <tr>
+              <td *ngFor="let col of columns" style="font-size: larger;">
+                {{ rowData[col.field] }}
+                <ng-container *ngIf="col.field === 'edit'">
+                  <p-button icon="pi pi-pencil" pTooltip="Modifica" routerLink="../modifica/{{rowData.id}}" styleClass="p-button-rounded p-button-outlined">
+                  </p-button>
+                </ng-container>              
+                <ng-container *ngIf="col.field === 'delete'">
+                  <p-button (click)="checkDelete(rowData.id)" icon="pi pi-trash" class="p-button-danger" pTooltip="Elimina" styleClass="p-button-rounded p-button-danger p-button-outlined"></p-button>
+                </ng-container>
+              </td>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="summary">
+            <div class="flex align-items-center justify-content-between">
+                In totale ci sono {{totRows ? totRows : 0 }} elementi.
+            </div>
+        </ng-template>
+        </p-table>
+        <p-paginator (onPageChange)="onPageChange($event)" [first]="pageIndex" [totalRecords]="totRows" [rows]="pageSize" [totalRecords]="120" [rowsPerPageOptions]="[3, 5, 10]" [style]="{ 'border-radius':'0px' }"></p-paginator>
+        <p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>
+      </div>
+    </div>
+  </div>

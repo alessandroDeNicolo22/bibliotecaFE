@@ -1,0 +1,48 @@
+<div class="container-fluid">
+    <div class="row">
+      <div class="col">
+          <p-toast position="top-center" [showTransformOptions]="'translateY(100%)'" [showTransitionOptions]="'1000ms'" [hideTransitionOptions]="'1000ms'" [showTransformOptions]="'translateX(100%)'" [style]="{'width': '30%', 'font-weight':'bold'}"></p-toast>
+
+          <p-table [value]="elenco" [scrollHeight]="'400px'" [scrollable]="true" styleClass="p-datatable-striped" [tableStyle]="{ 'min-width': '50rem', 'width':'100%' }">
+            <ng-template pTemplate="caption">
+                <div class="header" >
+                    <h1 style="font-weight: bold;">Definizione del Budget.</h1>
+                    <span class="p-input-icon-left ml-auto">
+                      <form [formGroup]="formNuovo">
+                        <label style="display: block; font-weight: bold;">Area</label>
+                      <p-dropdown [options]="elencoAree" [(ngModel)]="formNuovo.value.oArea" optionLabel="area" optionValue="id" formControlName="oArea" [style]="{'width': '254.4px'}" inputId="float-label" placeholder="Seleziona un'Area" (onChange)="submitForm()"></p-dropdown>
+                      <small class="p error block" *ngIf="formNuovo.get('oArea')?.invalid && formNuovo.get('oArea')?.dirty" style="color: red;">Inserire correttamente l'Area!</small>
+                      </form>
+                    </span>
+                </div>
+            </ng-template>
+          <ng-template pTemplate="header">
+            <tr>
+              <th style="min-width:200px">Codice</th>
+              <th style="min-width:200px">Sottocategoria</th>
+              <th style="min-width:200px">Area</th>
+              <th style="min-width:200px">Budget</th>
+              <th></th>
+          </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-sottoC>
+            <tr>
+              <tr>
+                <td>{{sottoC.codice}}</td>
+                <td>{{sottoC.sottocategoria}}</td>
+                <td>{{sottoC.oArea.area}}</td>
+                <td>{{sottoC.budget | currency : 'EUR'}}</td>
+                <td><p-button icon="pi pi-search" pTooltip="Indietro" (onClick)="cerca(sottoC)" styleClass="p-button-rounded p-button-success p-button-outlined"></p-button></td>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="summary">
+            <div class="flex align-items-center justify-content-between">
+                In total there are {{totRows ? totRows : 0 }} elements.
+            </div>
+        </ng-template>
+        </p-table>
+        <p-paginator (onPageChange)="onPageChange($event)" [first]="pageIndex" [totalRecords]="totRows" [rows]="pageSize" [rowsPerPageOptions]="[3, 5, 10]" [style]="{ 'border-radius':'0px' }" ></p-paginator>
+      </div>
+      </div>
+    </div>
+  

@@ -1,0 +1,79 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col">
+
+      
+        <p-card header="Aggiungi Preventivo" [style]="{ width: '700px', height: '700px' }" class="d-flex align-items-center justify-content-center">
+          <ng-template pTemplate="header">
+            <img alt="Card" src="https://primefaces.org/cdn/primeng/images/usercard.png" />
+          </ng-template>
+          <div class="row">
+            <div class="col text-center py-4">
+              <form [formGroup]="formNuovo">
+                <div class="row">
+                  <div class="col-md-6">
+                    <label for="codice">Codice</label><br>
+                    <input type="text" pInputText formControlName="codice" name="codice" /><br>
+                    <p-message severity="error"
+                      *ngIf="formNuovo.controls['codice'].touched && formNuovo.controls['codice'].invalid"
+                      text="{{getErrorMessage()}}" [style]="{'width': '100%'}"></p-message>
+                  </div>
+                  <div class="col-md-6">
+
+
+
+                    <label for="preventivo">Preventivo</label><br>
+                    <input type="text" pInputText formControlName="preventivo" name="preventivo" /><br>
+                    <p-message severity="error"
+                      *ngIf="formNuovo.controls['preventivo'].touched && formNuovo.controls['preventivo'].invalid"
+                      text="Campo obbligatorio" [style]="{'width': '100%'}"></p-message>
+                  </div>
+                </div>
+
+                <br><br>
+                <div class="row">
+                  <div class="col-md-6">
+                    <label for="fornitore">Fornitore</label><br>
+                    <p-dropdown formControlName="fornitore" [options]="elencoFornitori" optionLabel="ragioneSociale"
+                      optionValue="id" name="fornitore" [style]="{'width': '206.6px'}"
+                      placeholder="Seleziona fornitore">
+                    </p-dropdown><br>
+                    <p-message severity="error"
+                      *ngIf="formNuovo.controls['fornitore'].touched && formNuovo.controls['fornitore'].invalid"
+                      text="Campo obbligatorio" [style]="{'width': '100%'}"></p-message>
+                  </div>
+                  <div class="col-md-6">
+
+
+                    <label for="importo">Importo</label><br>
+                    <input type="number" pInputText formControlName="importo" name="importo" /><br>
+                    <p-message severity="error"
+                      *ngIf="formNuovo.controls['importo'].touched && formNuovo.controls['importo'].invalid"
+                      text="Campo obbligatorio" [style]="{'width': '100%'}"></p-message>
+                  </div>
+                </div>
+                <br><br>
+
+                <label for="data">Data</label><br>
+                <p-calendar formControlName="data" [showIcon]="true" dateFormat="dd/mm/yy" name="data" /><br>
+                <p-message severity="error"
+                  *ngIf="formNuovo.controls['data'].touched && formNuovo.controls['data'].invalid"
+                  text="Campo obbligatorio" [style]="{'width': '100%'}"></p-message>
+
+
+                <br><br>
+                <p-button label="Salva" icon="pi pi-check" styleClass="p-button-outlined p-button-success"
+                  (onClick)="aggiungi()"></p-button>
+                <p-button label="Indietro" icon="pi pi-times" styleClass="p-button-outlined p-button-secondary"
+                  [style]="{ 'margin-left': '.5em' }" routerLink="../gestione"></p-button>
+
+              </form>
+            </div>
+          </div>
+        </p-card>
+        <p-toast position="top-center" [showTransformOptions]="'translateY(100%)'" [showTransitionOptions]="'1000ms'"
+          [hideTransitionOptions]="'1000ms'" [showTransformOptions]="'translateX(100%)'"
+          [style]="{'width': '30%', 'font-weight':'bold'}"></p-toast>
+      </div>
+    </div>
+  </div>

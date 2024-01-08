@@ -1,0 +1,26 @@
+.container-fluid {
+    background-image: url('/assets/img/area.jpg');
+  }
+  :host ::ng-deep .p-inputtext {
+    text-align: center;
+  }
+:host ::ng-deep  img {
+  height: 150px;
+}
+:host ::ng-deep .form-control {
+  display: block;
+  width: 100%;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  padding: 0;
+  height: 48px;
+  color: var(--bs-body-color);
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: var(--bs-body-bg);
+  background-clip: padding-box;
+  border: var(--bs-border-width) solid var(--bs-border-color);
+  border-radius: var(--bs-border-radius);
+  transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}

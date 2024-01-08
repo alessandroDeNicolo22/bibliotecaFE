@@ -1,0 +1,257 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <p-card header="Modifica Fattura Passiva" [style]="{ width: '700px', height: 'auto' }"
+        class="d-flex align-items-center justify-content-center" subheader="Modifica la fattura passiva.">
+        <ng-template pTemplate="header">
+          <img alt="Card" src="https://primefaces.org/cdn/primeng/images/usercard.png" />
+        </ng-template>
+        <div class="row">
+          <div class="col text-center py-4">
+            <br>
+
+            <form [formGroup]="formModifica">
+              <div class="row">
+                <div class="col-md-6">
+                  <label for="numero" style="font-weight: bold;">Numero</label>
+                  <input type="text" pInputText [(ngModel)]="formModifica.value.numero" formControlName="numero"
+                    placeholder="Inseril il Numero fattura" inputId="numero" [style]="{'width': '100%'}">
+                  <small class="p error block"
+                    *ngIf="formModifica.get('numero')?.invalid && formModifica.get('numero')?.dirty"
+                    style="color: red;">Inserire correttamente il numero!</small>
+                </div>
+                <div class="col-md-6">
+                  <label for="descrizione" style="font-weight: bold;">Descrizione</label>
+                  <input type="text" pInputText [(ngModel)]="formModifica.value.descrizione" placeholder="Inserisci la Descrizione"
+                    formControlName="descrizione"  inputId="descrizione" [style]="{'width': '100%'}" />
+                  <small class="p error block"
+                    *ngIf="formModifica.get('descrizione')?.invalid && formModifica.get('descrizione')?.dirty"
+                    style="color: red;">Inserire correttamente la descrizione</small>
+                </div>
+              </div>
+              <br><br>
+              <div class="row">
+                <div class="col-md-6">
+                  <label for="data" style="font-weight: bold;">Data</label>
+                  <p-calendar [(ngModel)]="formModifica.value.data" [showIcon]="true" formControlName="data"
+                    inputId="data" [style]="{'width': '100%'}" ></p-calendar>
+                  <small class="p error block"
+                    *ngIf="formModifica.get('data')?.invalid && formModifica.get('data')?.dirty"
+                    style="color: red;">Inserire correttamente la Data!</small>
+                </div>
+                <div class="col-md-6">
+                  <label for="fornitore" style="font-weight: bold;">Fornitore</label>
+                  <p-dropdown [options]="elencoFornitori" optionLabel="ragioneSociale" formControlName="oFornitore"
+                    inputId="fornitore" placeholder="Seleziona un Fornitore" [style]="{'width': '100%'}"></p-dropdown>
+                  <small class="p error block"
+                    *ngIf="formModifica.get('oFornitore')?.invalid && formModifica.get('oFornitore')?.dirty"
+                    style="color: red;">Inserire correttamente il Fornitore!</small>
+                </div>
+              </div>
+              <br><br>
+              <div class="row">
+                <div class="col-md-6">
+                  <p-button label="Aggiungi Dettagli" styleClass="p-button-outlined p-button-secondary"
+                    icon="pi pi-folder-open" (onClick)="openDetails()" [style]="{'width': '210%'}"></p-button>
+                </div>
+              </div>
+            </form>
+            <br><br>
+            <p-button label="Salva" icon="pi pi-check" styleClass="p-button-outlined p-button-success"
+              (onClick)="submitForm()"></p-button>
+            <p-button label="Indietro" icon="pi pi-times" styleClass="p-button-outlined p-button-secondary"
+              [style]="{ 'margin-left': '.5em' }" (onClick)="back(formModifica.value.oFornitore)"></p-button>
+          </div>
+        </div>
+      </p-card>
+      <p-dialog header="Dettagli della fattura" [(visible)]="visible1" [style]="{width: '50vw'}">
+        <p-card header="Nuovo Dettaglio Fattura" [style]="{ width: '600px', height: 'auto' }"
+          class="vh-100 d-flex align-items-center justify-content-center" subheader="Inserisci un nuovo dettaglio.">
+          <ng-template pTemplate="header">
+            <img alt="Card" src="https://primefaces.org/cdn/primeng/images/usercard.png" />
+          </ng-template>
+          <div class="row">
+            <div class="col text-center py-4">
+              <br>
+              <form [formGroup]="formDettaglio">
+                <label for="Spesa" style="display: block; font-weight: bold;">Spesa
+                  d'Investimento</label>
+                <p-dropdown [options]="elencoSpese" optionLabel="spesainvestimento" formControlName="oSpesainvestimento"
+                  [style]="{'width': '400px'}" inputId="Spesa" placeholder="Seleziona una Spesa d'Investimento">
+                </p-dropdown>
+                <br>
+                <small class="p error block"
+                  *ngIf="formModifica.get('oSpesainvestimento')?.invalid && formModifica.get('oSpesainvestimento')?.dirty"
+                  style="color: red;">Inserire correttamente la Spesa d'Investimento!</small>
+                <br><br>
+                <label for="Preventivo" style="display: block; font-weight: bold;">Preventivo</label>
+                <p-dropdown [options]="elencoPreventivi" optionLabel="preventivo" formControlName="oPreventivo"
+                  [style]="{'width': '400px'}" inputId="float-label" placeholder="Seleziona un Preventivo"></p-dropdown>
+                <br>
+                <small class="p error block"
+                  *ngIf="formModifica.get('oPreventivo')?.invalid && formModifica.get('oPreventivo')?.dirty"
+                  style="color: red;">Inserire correttamente il Preventivo!</small>
+                <br><br>
+                <label for="Aliquotaiva" style="display: block; font-weight: bold;">Aliquota
+                  iva</label>
+                <p-dropdown [options]="elencoAliquote" optionLabel="descrizione" formControlName="oAliquotaiva"
+                  [style]="{'width': '400px'}" inputId="float-label" placeholder="Seleziona un'aliquota iva">
+                </p-dropdown>
+                <br>
+                <small class="p error block"
+                  *ngIf="formDettaglio.get('oAliquotaiva')?.invalid && formDettaglio.get('oAliquotaiva')?.dirty"
+                  style="color: red;">Inserire correttamente l'aliquota iva!</small>
+                <br><br>
+                <label for="Importo" style="display: block; font-weight: bold;">Importo</label>
+                <p-inputNumber [showButtons]="true" formControlName="importo" inputId="Importo" [min]="0"
+                  [style]="{'width': '400px'}">
+                </p-inputNumber>
+                <br>
+                <small class="p error block"
+                  *ngIf="formModifica.get('importo')?.invalid && formModifica.get('importo')?.dirty"
+                  style="color: red;">Inserire correttamente l'Importo!</small>
+                <br><br>
+                <label for="dettaglio" style="display: block; font-weight: bold;">Dettaglio
+                  Fattura</label>
+                <input type="text" pInputText placeholder="Dettaglio fattura" formControlName="dettaglioFattura"
+                  style="width: 400px;" inputId="dettaglio" />
+                <br>
+                <small class="p error block"
+                  *ngIf="formModifica.get('dettaglioFattura')?.invalid && formModifica.get('dettaglioFattura')?.dirty"
+                  style="color: red;">Inserire correttamente il dettaglio della fattura!</small>
+                <br><br>
+                <p-button label="Aggiungi" icon="pi pi-plus" styleClass="p-button-outlined p-button-success"
+                  (onClick)="addDetail()"></p-button>
+                <p-button label="Annulla" icon="pi pi-times" styleClass="p-button-outlined p-button-secondary"
+                  [style]="{ 'margin-left': '.5em' }" (onClick)="annulla()"></p-button>
+              </form>
+
+            </div>
+          </div>
+        </p-card>
+      </p-dialog>
+      <p-dialog header="Dettagli della Fattura" [(visible)]="visible2" [style]="{width: '50vw'}">
+        <p-card header="Modifica Dettaglio Fattura" [style]="{ width: '600px', height: 'auto' }"
+          class="vh-100 d-flex align-items-center justify-content-center"
+          subheader="Modifica il Dettaglio della Fattura.">
+          <ng-template pTemplate="header">
+            <img alt="Card" src="https://primefaces.org/cdn/primeng/images/usercard.png" />
+          </ng-template>
+          <div class="row">
+            <div class="col text-center py-4">
+              <br>
+              <form [formGroup]="formDettaglio">
+                <label for="Spesa" style="display: block; font-weight: bold;">Spesa
+                  d'Investimento</label>
+                <p-dropdown [options]="elencoSpese" optionLabel="spesainvestimento" optionValue="id"
+                  formControlName="oSpesainvestimento" [style]="{'width': '400px'}" inputId="Spesa"
+                  placeholder="Seleziona una Spesa d'Investimento"></p-dropdown>
+                <br>
+                <small class="p error block"
+                  *ngIf="formDettaglio.get('oSpesainvestimento')?.invalid && formDettaglio.get('oSpesainvestimento')?.dirty"
+                  style="color: red;">Inserire correttamente la Spesa d'Investimento!</small>
+                <br><br>
+                <label for="Preventivo" style="display: block; font-weight: bold;">Preventivo</label>
+                <p-dropdown [options]="elencoPreventivi" optionLabel="preventivo" optionValue="id"
+                  formControlName="oPreventivo" [style]="{'width': '400px'}" inputId="float-label"
+                  placeholder="Seleziona un Preventivo"></p-dropdown>
+                <br>
+                <small class="p error block"
+                  *ngIf="formDettaglio.get('oPreventivo')?.invalid && formDettaglio.get('oPreventivo')?.dirty"
+                  style="color: red;">Inserire correttamente il Preventivo!</small>
+                <br><br>
+                <label for="Importo" style="display: block; font-weight: bold;">Importo</label>
+                <p-inputNumber [showButtons]="true" formControlName="importo" inputId="Importo" [min]="0"
+                  [style]="{'width': '400px'}">
+                </p-inputNumber>
+                <br>
+                <small class="p error block"
+                  *ngIf="formDettaglio.get('importo')?.invalid && formDettaglio.get('importo')?.dirty"
+                  style="color: red;">Inserire correttamente l'Importo!</small>
+                <br><br>
+                <label for="Aliquotaiva" style="display: block; font-weight: bold;">Aliquota
+                  iva</label>
+                <p-dropdown [options]="elencoAliquote" optionLabel="descrizione" optionValue="id"
+                  formControlName="oAliquotaiva" [style]="{'width': '400px'}" inputId="float-label"
+                  placeholder="Seleziona un'aliquota iva"></p-dropdown>
+                <br>
+                <small class="p error block"
+                  *ngIf="formDettaglio.get('oAliquotaiva')?.invalid && formDettaglio.get('oAliquotaiva')?.dirty"
+                  style="color: red;">Inserire correttamente l'aliquota iva!</small>
+                <br><br>
+                <label for="dettaglio" style="display: block; font-weight: bold;">Dettaglio
+                  Fattura</label>
+                <input type="text" pInputText placeholder="Dettaglio fattura" formControlName="dettaglioFattura"
+                  style="width: 400px;" inputId="dettaglio" />
+                <br>
+                <small class="p error block"
+                  *ngIf="formModifica.get('dettaglioFattura')?.invalid && formModifica.get('dettaglioFattura')?.dirty"
+                  style="color: red;">Inserire correttamente il dettaglio della fattura!</small>
+              </form>
+              <br><br>
+              <p-button label="Salva" icon="pi pi-plus" styleClass="p-button-outlined p-button-success"
+                (onClick)="updateDetail()"></p-button>
+              <p-button label="Chiudi" icon="pi pi-times" styleClass="p-button-outlined p-button-secondary"
+                [style]="{ 'margin-left': '.5em' }" (onClick)="annulla()"></p-button>
+
+            </div>
+          </div>
+        </p-card>
+      </p-dialog>
+      <p-toast position="top-center" [showTransformOptions]="'translateY(100%)'" [showTransitionOptions]="'1000ms'"
+        [hideTransitionOptions]="'1000ms'" [showTransformOptions]="'translateX(100%)'" [style]="{'width': '30%', 'font-weight':'bold'}"></p-toast>
+      <p-dialog header="Dettagli della Fattura" [(visible)]="visible" [style]="{width: '50vw'}">
+        <p-table [value]="dettTransienti" [tableStyle]="{ 'min-width': '50rem', 'width':'100%' }"
+          styleClass="p-datatable-striped">
+          <ng-template pTemplate="caption">
+            <div class="header">
+              <h1 style="font-weight: bold;">Dettagli della Fattura.</h1>
+              <p-button icon="pi pi-plus" pTooltip="Dettagli"
+                styleClass="p-button-rounded p-button-success p-button-outlined" (onClick)="openAddDetails()">
+              </p-button>
+            </div>
+          </ng-template>
+          <ng-template pTemplate="header">
+            <tr>
+              <th style="min-width:200px">Spesa Investimento</th>
+              <th style="min-width:200px">Preventivo</th>
+              <th style="min-width:200px">Importo</th>
+              <th style="min-width:200px">Aliquota iva</th>
+              <th style="min-width:200px">Dettaglio fattura</th>
+              <th></th>
+              <th></th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-ordine let-index>
+            <tr>
+            <tr>
+
+              <td>{{ordine.oSpesainvestimento.spesainvestimento}}</td>
+              <td>{{ordine.oPreventivo.preventivo}}</td>
+              <td>{{ordine.importo | currency : 'EUR'}}</td>
+              <td>{{ordine.oAliquotaiva.descrizione}}</td>
+              <td>{{ordine.dettaglioFattura}}</td>
+              <td>
+                <p-button icon="pi pi-pencil" pTooltip="Modifica" (onClick)="updateDetails(ordine)"
+                  styleClass="p-button-rounded p-button-outlined">
+                </p-button>
+              </td>
+              <td>
+                <p-button (click)="deleteDetail(index)" icon="pi pi-trash" class="p-button-danger" pTooltip="Elimina"
+                  styleClass="p-button-rounded p-button-danger p-button-outlined"></p-button>
+              </td>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="summary">
+            <div class="flex align-items-center justify-content-between">
+              In total there are {{totRowsd ? totRowsd : 0 }} elements.
+            </div>
+          </ng-template>
+        </p-table>
+        <p-paginator (onPageChange)="onPageChange1($event)" [first]="pageIndexd" [totalRecords]="totRowsd"
+          [rows]="pageSized" [rowsPerPageOptions]="[3, 5, 10]" [style]="{ 'border-radius':'0px' }"></p-paginator>
+      </p-dialog>
+
+    </div>
+  </div>
+</div>

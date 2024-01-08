@@ -1,0 +1,234 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col">
+      
+        <p-card header="Nuovo Ordine d'Acquisto" [style]="{ width: '600px', height: 'auto' }"
+          class="d-flex align-items-center justify-content-center" subheader="Inserisci un nuovo Ordine d'Acquisto.">
+          <ng-template pTemplate="header">
+            <img alt="Card" src="https://primefaces.org/cdn/primeng/images/usercard.png" />
+          </ng-template>
+          <div class="row">
+            <div class="col text-center py-4">
+              <br>
+              <form [formGroup]="formNuovo">
+                <div class="row">
+                  <div class="col-md-6">
+                    <label for="Importo" style="display: block; font-weight: bold;">Importo</label>
+                    <p-inputNumber [(ngModel)]="formNuovo.value.importo" [showButtons]="true" formControlName="importo"
+                      inputId="Importo" [min]="0" [style]="{'width': '100%'}">
+                    </p-inputNumber>
+                    <small class="p error block"
+                      *ngIf="formNuovo.get('importo')?.invalid && formNuovo.get('importo')?.dirty"
+                      style="color: red;">Inserire correttamente l'Importo!</small>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="OrdineAcquisto" style="display: block; font-weight: bold;">Ordine Acquisto</label>
+                    <input type="text" pInputText [(ngModel)]="formNuovo.value.ordineacquisto"
+                      placeholder="Ordine Acquisto" formControlName="ordineacquisto" [style]="{'width': '100%'}"
+                      inputId="OrdineAcquisto" />
+                    <small class="p error block"
+                      *ngIf="formNuovo.get('ordineacquisto')?.invalid && formNuovo.get('ordineacquisto')?.dirty"
+                      style="color: red;">Inserire correttamente l'Ordine Acquisto</small>
+                  </div>
+                </div>
+                <br><br>
+                <div class="row">
+                  <div class="col-md-6">
+                    <label for="Data" style="display: block; font-weight: bold;">Data</label>
+                    <p-calendar [(ngModel)]="formNuovo.value.data" [showIcon]="true" formControlName="data"
+                      inputId="Data" [style]="{'width': '100%'}"></p-calendar>
+                    <small class="p error block" *ngIf="formNuovo.get('data')?.invalid && formNuovo.get('data')?.dirty"
+                      style="color: red;">Inserire correttamente la Data!</small>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="Fornitore" style="display: block; font-weight: bold;">Fornitore</label>
+                    <p-dropdown [options]="elencoFornitori" optionLabel="ragioneSociale" formControlName="oFornitore"
+                    [style]="{'width': '100%'}" inputId="float-label" placeholder="Seleziona un Fornitore">
+                    </p-dropdown>
+                    <small class="p error block"
+                      *ngIf="formNuovo.get('oFornitore')?.invalid && formNuovo.get('oFornitore')?.dirty"
+                      style="color: red;">Inserire correttamente il Fornitore!</small>
+                  </div>
+                </div>
+                <br><br>
+                <div class="row">
+                  <div class="col-md-6">
+                    <p-button label="Aggiungi Dettagli" styleClass="p-button-outlined p-button-secondary"
+                      icon="pi pi-folder-open" (onClick)="openDetails()" [style]="{'width': '560px'}"></p-button>
+                  </div>
+                </div>
+              </form>
+              <br><br>
+              <p-button label="Salva" icon="pi pi-check" styleClass="p-button-outlined p-button-success"
+                (onClick)="submitForm()"></p-button>
+              <p-button label="Indietro" icon="pi pi-times" styleClass="p-button-outlined p-button-secondary"
+                [style]="{ 'margin-left': '.5em' }" routerLink="../gestione"></p-button>
+            </div>
+          </div>
+        </p-card>
+        <p-dialog header="Dettagli dell'Ordine" [(visible)]="visible1" [style]="{width: '50vw'}">
+          <p-card header="Nuovo Ordine Dettaglio" [style]="{ width: '600px', height: 'auto' }"
+            class="vh-100 d-flex align-items-center justify-content-center" subheader="Inserisci un nuovo dettaglio.">
+            <ng-template pTemplate="header">
+              <img alt="Card" src="https://primefaces.org/cdn/primeng/images/usercard.png" />
+            </ng-template>
+            <div class="row">
+              <div class="col text-center py-4">
+                <br>
+                <form [formGroup]="formDettaglio">
+                  <label for="Spesa" style="display: block; font-weight: bold;">Spesa d'Investimento</label>
+                  <p-dropdown [options]="elencoSpese" optionLabel="spesainvestimento"
+                    formControlName="oSpesaInvestimento" [style]="{'width': '400px'}" inputId="Spesa"
+                    placeholder="Seleziona una Spesa d'Investimento"></p-dropdown>
+                  <br>
+                  <small class="p error block"
+                    *ngIf="formNuovo.get('oSpesaInvestimento')?.invalid && formNuovo.get('oSpesaInvestimento')?.dirty"
+                    style="color: red;">Inserire correttamente la Spesa d'Investimento!</small>
+                  <br><br>
+                  <label for="Progetto" style="display: block; font-weight: bold;">Progetto</label>
+                  <p-dropdown [options]="elencoProgetti" optionLabel="progetto" formControlName="oProgetto"
+                    [style]="{'width': '400px'}" inputId="float-label" placeholder="Seleziona un Progetto"></p-dropdown>
+                  <br>
+                  <small class="p error block"
+                    *ngIf="formNuovo.get('oProgetto')?.invalid && formNuovo.get('oProgetto')?.dirty"
+                    style="color: red;">Inserire correttamente il Progetto!</small>
+                  <br><br>
+                  <label for="Importo" style="display: block; font-weight: bold;">Importo</label>
+                  <p-inputNumber [showButtons]="true" formControlName="importo" inputId="Importo" [min]="0"
+                    [style]="{'width': '400px'}">
+                  </p-inputNumber>
+                  <br>
+                  <small class="p error block"
+                    *ngIf="formNuovo.get('importo')?.invalid && formNuovo.get('importo')?.dirty"
+                    style="color: red;">Inserire correttamente l'Importo!</small>
+                  <br><br>
+                  <label for="Quantità" style="display: block; font-weight: bold;">Quantità</label>
+                  <p-inputNumber [showButtons]="true" formControlName="quantita" inputId="Quantità" [min]="0"
+                    [style]="{'width': '400px'}">
+                  </p-inputNumber>
+                  <br>
+                  <small class="p error block"
+                    *ngIf="formNuovo.get('quantita')?.invalid && formNuovo.get('quantita')?.dirty"
+                    style="color: red;">Inserire correttamente la Quantità!</small>
+                </form>
+                <br><br>
+                <p-button label="Aggiungi" icon="pi pi-plus" styleClass="p-button-outlined p-button-success"
+                  (onClick)="addDetail()"></p-button>
+                <p-button label="Annulla" icon="pi pi-times" styleClass="p-button-outlined p-button-secondary"
+                  [style]="{ 'margin-left': '.5em' }" (onClick)="annulla()"></p-button>
+
+              </div>
+            </div>
+          </p-card>
+        </p-dialog>
+        <p-dialog header="Dettagli dell'Ordine" [(visible)]="visible2" [style]="{width: '50vw'}">
+          <p-card header="Modifica Ordine Dettaglio" [style]="{ width: '600px', height: 'auto' }"
+            class="vh-100 d-flex align-items-center justify-content-center" subheader="Modifica l'Ordine Dettaglio.">
+            <ng-template pTemplate="header">
+              <img alt="Card" src="https://primefaces.org/cdn/primeng/images/usercard.png" />
+            </ng-template>
+            <div class="row">
+              <div class="col text-center py-4">
+                <br>
+                <form [formGroup]="formDettaglio">
+                  <label for="Spesa" style="display: block; font-weight: bold;">Spesa d'Investimento</label>
+                  <p-dropdown [options]="elencoSpese" optionLabel="spesainvestimento" optionValue="id"
+                    formControlName="oSpesaInvestimento" [style]="{'width': '400px'}" inputId="Spesa"
+                    placeholder="Seleziona una Spesa d'Investimento"></p-dropdown>
+                  <br>
+                  <small class="p error block"
+                    *ngIf="formDettaglio.get('oSpesaInvestimento')?.invalid && formDettaglio.get('oSpesaInvestimento')?.dirty"
+                    style="color: red;">Inserire correttamente la Spesa d'Investimento!</small>
+                  <br><br>
+                  <label for="Progetto" style="display: block; font-weight: bold;">Progetto</label>
+                  <p-dropdown [options]="elencoProgetti" optionLabel="progetto" optionValue="id"
+                    formControlName="oProgetto" [style]="{'width': '400px'}" inputId="float-label"
+                    placeholder="Seleziona un Progetto"></p-dropdown>
+                  <br>
+                  <small class="p error block"
+                    *ngIf="formDettaglio.get('oProgetto')?.invalid && formDettaglio.get('oProgetto')?.dirty"
+                    style="color: red;">Inserire correttamente il Progetto!</small>
+                  <br><br>
+                  <label for="Importo" style="display: block; font-weight: bold;">Importo</label>
+                  <p-inputNumber [showButtons]="true" formControlName="importo" inputId="Importo" [min]="0"
+                    [style]="{'width': '400px'}">
+                  </p-inputNumber>
+                  <br>
+                  <small class="p error block"
+                    *ngIf="formDettaglio.get('importo')?.invalid && formDettaglio.get('importo')?.dirty"
+                    style="color: red;">Inserire correttamente l'Importo!</small>
+                  <br><br>
+                  <label for="Quantità" style="display: block; font-weight: bold;">Quantità</label>
+                  <p-inputNumber [showButtons]="true" formControlName="quantita" inputId="Quantità" [min]="0"
+                    [style]="{'width': '400px'}">
+                  </p-inputNumber>
+                  <br>
+                  <small class="p error block"
+                    *ngIf="formDettaglio.get('quantita')?.invalid && formDettaglio.get('quantita')?.dirty"
+                    style="color: red;">Inserire correttamente la Quantità!</small>
+                </form>
+                <br><br>
+                <p-button label="Salva" icon="pi pi-plus" styleClass="p-button-outlined p-button-success"
+                  (onClick)="updateDetail()"></p-button>
+                <p-button label="Chiudi" icon="pi pi-times" styleClass="p-button-outlined p-button-secondary"
+                  [style]="{ 'margin-left': '.5em' }" (onClick)="annulla()"></p-button>
+
+              </div>
+            </div>
+          </p-card>
+        </p-dialog>
+        <p-toast position="top-center" [showTransformOptions]="'translateY(100%)'" [showTransitionOptions]="'1000ms'"
+          [hideTransitionOptions]="'1000ms'" [showTransformOptions]="'translateX(100%)'" [style]="{'width': '30%', 'font-weight':'bold'}"></p-toast>
+        <p-dialog header="Dettagli dell'Ordine" [(visible)]="visible" [style]="{width: '50vw'}">
+          <p-table [value]="dettTransienti" [tableStyle]="{ 'min-width': '50rem', 'width':'100%' }"
+            styleClass="p-datatable-striped">
+            <ng-template pTemplate="caption">
+              <div class="header">
+                <h1 style="font-weight: bold;">Dettagli Ordini d'Acquisto.</h1>
+                <p-button icon="pi pi-plus" pTooltip="Dettagli"
+                  styleClass="p-button-rounded p-button-success p-button-outlined" (onClick)="openAddDetails()">
+                </p-button>
+              </div>
+            </ng-template>
+            <ng-template pTemplate="header">
+              <tr>
+                <th style="min-width:200px">Spesa Investimento</th>
+                <th style="min-width:200px">Progetto</th>
+                <th style="min-width:200px">Importo</th>
+                <th style="min-width:200px">Quantità</th>
+                <th></th>
+                <th></th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-ordine let-index>
+              <tr>
+              <tr>
+
+                <td>{{ordine.oSpesaInvestimento.spesainvestimento}}</td>
+                <td>{{ordine.oProgetto.progetto}}</td>
+                <td>{{ordine.importo | currency : 'EUR'}}</td>
+                <td>{{ordine.quantita}}</td>
+                <td>
+                  <p-button icon="pi pi-pencil" pTooltip="Modifica" (onClick)="updateDetails(ordine)"
+                    styleClass="p-button-rounded p-button-outlined">
+                  </p-button>
+                </td>
+                <td>
+                  <p-button (click)="deleteDetail(index)" icon="pi pi-trash" class="p-button-danger" pTooltip="Elimina"
+                    styleClass="p-button-rounded p-button-danger p-button-outlined"></p-button>
+                </td>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="summary">
+              <div class="flex align-items-center justify-content-between">
+                In total there are {{totRowsd ? totRowsd : 0 }} elements.
+              </div>
+            </ng-template>
+          </p-table>
+          <p-paginator (onPageChange)="onPageChange1($event)" [first]="pageIndexd" [totalRecords]="totRowsd"
+            [rows]="pageSized" [rowsPerPageOptions]="[3, 5, 10]" [style]="{ 'border-radius':'0px' }"></p-paginator>
+        </p-dialog>
+      
+    </div>
+  </div>
+</div>

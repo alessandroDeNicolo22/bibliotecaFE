@@ -1,0 +1,78 @@
+<p-footer>
+  <div class="footer-content">
+    <div class="footer-column">
+      <p-button styleClass="p-button-rounded p-button-text" routerLink="home">
+        <img alt="logo" src="assets/img/logoEC.png" style="width: 1.8rem" />&nbsp;
+        <span style="font-weight: bold; color: white;">EuropCar</span>
+      </p-button>
+      <p style="font-size: xx-small;">&copy; 2023 Europcar. Tutti i diritti riservati.</p>
+    </div>
+    <div style="text-align: center;">
+      <span
+        style="font-size: 18px; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; display: block;">Seguici
+        sui nostri social:</span>
+      <br>
+      <div style="display: flex; justify-content: center;">
+        <i class="pi pi-linkedin" style="font-size: 25px;"></i>&nbsp;&nbsp;
+        <i class="pi pi-facebook" style="font-size: 25px;"></i>&nbsp;&nbsp;
+        <i class="pi pi-instagram" style="font-size: 25px;"></i>&nbsp;&nbsp;
+        <i class="pi pi-twitter" style="font-size: 25px;"></i>
+      </div>
+    </div>
+
+    <div class="footer-column">
+      <span style="font-size: 18px; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; display: block; margin-top: 10px;">Contattaci:</span>
+      <div style="display: flex; justify-content: center; align-items: center;">
+        <p-button styleClass="p-button-rounded p-button-text" [style]="{'margin-right': '10px'}">
+          <fa-icon [icon]="faEnvelope" style="font-size: 27px; color: aliceblue;"></fa-icon>
+        </p-button>
+        <p-button styleClass="p-button-rounded p-button-text" [style]="{'margin-right': '10px'}">
+          <fa-icon [icon]="faPhone" style="font-size: 27px; color: aliceblue;"></fa-icon>
+        </p-button>
+        <p-button styleClass="p-button-rounded p-button-text">
+          <i class="pi pi-whatsapp" style="font-size: 27px; color: aliceblue;" (click)="op.toggle($event)"></i>
+        </p-button>
+        <p-overlayPanel #op>
+          <div class="main-container">
+        <div style="display: flex; justify-content: center; align-items: center;">
+          <fa-icon [icon]="faHand" style="font-size: 27px; color: aliceblue;"></fa-icon>
+          <h2 style="font-weight: bold; color: aliceblue;">Ciao! Ti serve aiuto?</h2>
+       </div>
+       <div class="content-container">
+        <h2 style="font-weight: bold; color: aliceblue;">Come possiamo aiutarti?</h2>
+        <span class="p-input-icon-right">
+          <i class="pi pi-caret-right" style="color: green;"></i>
+          <input type="text" class="p-inputtext-lg" pInputText placeholder="Inviaci un messaggio su Whatsapp!" style="width: 400px;"/>
+      </span>
+        </div>
+        <div class="content-container">
+          <p-card header="Iscriviti alla nostra Newsletter!">
+            <p class="m-0">
+              Perché ricevere la nostra Newsletter?
+              <br>
+              <i class="pi pi-check"></i> 10% di sconto sulla tua prima prenotazione
+              <br>
+              <i class="pi pi-check"></i>Offerte speciali, idee di viaggio e notizie sempre aggiornate.
+              <br>
+              <i class="pi pi-check"></i>  Accesso esclusivo a sconti e vendite private
+              <br>
+              <i class="pi pi-check"></i> Offerte personalizzate in base al tuo profilo.
+            </p>
+        </p-card>
+        </div>
+      </div>
+      </p-overlayPanel>
+
+      </div>
+    </div>
+    
+  </div>
+  <div class="footer-legals">
+      <a href="#" style="font-size: 15px; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; text-decoration: none; " class="color-change-text">Mappa Sito </a> &nbsp;<span style="font-size: 15px;">|</span>&nbsp;
+      
+      <a href="#" style="font-size: 15px; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; text-decoration: none; " class="color-change-text">Codice etico e whistleblowing </a> &nbsp;<span style="font-size: 15px;">|</span>&nbsp;
+      
+      <a href="#" style="font-size: 15px; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; text-decoration: none; " class="color-change-text">Informativa Cookies</a> 
+      
+  </div>
+</p-footer>

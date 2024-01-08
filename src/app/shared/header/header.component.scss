@@ -1,0 +1,30 @@
+:host ::ng-deep .p-menuitem-text {
+    color: rgb(255, 255, 255) !important;
+
+}
+
+:host ::ng-deep .p-menuitem-icon {
+    color: rgb(255, 255, 255) !important;
+    font-size: 20px;
+
+}
+
+:host ::ng-deep .p-menuitem-link {
+    background-color: #000000 !important;/* Colore di sfondo desiderato quando l'item è attivo */
+    transition: none !important;
+}
+
+:host ::ng-deep .p-submenu-list {
+    background-color: #000000 !important;
+    border: 1px solid white;
+}
+
+:host ::ng-deep .p-button {
+    color: #ffffff;
+    background: #000000;
+    border: 0px;
+    padding: 0.75rem 1.25rem;
+    font-size: 1rem;
+    transition: 0 !important;
+    border-radius: 6px;
+}

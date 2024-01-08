@@ -1,0 +1,38 @@
+
+        <p-card header="Definisci il Budget" [style]="{ width: 'auto', height: 'auto' }" class="d-flex align-items-center justify-content-center" subheader="Definisci il Budget iniziale per la Sottocategoria selezionata.">
+          <ng-template pTemplate="header">
+            <img alt="Card" src="https://primefaces.org/cdn/primeng/images/usercard.png" />
+        </ng-template> 
+          <div class="row">
+              <div class="col text-center py-4">
+                <br>
+                <form [formGroup]="formModifica">
+              
+                    <label for="Codice" style="display: block; font-weight: bold;">Codice</label>
+                    <input type="text" pInputText [(ngModel)]="formModifica.value.codice"  placeholder="Codice" formControlName="codice"  [style]="{'width': '100%'}" inputId="Codice" [disabled]="true"/> 
+                  
+                  <label for="Sottocategoria" style="display: block; font-weight: bold;">Sottocategoria</label>
+                  <input type="text" pInputText [(ngModel)]="formModifica.value.sottocategoria"  placeholder="Sottocategoria" formControlName="sottocategoria"  [style]="{'width': '100%'}" inputId="Sottocategoria" [disabled]="true"/> 
+                
+                  <br><br> 
+                  
+                  <label for="Area" style="display: block; font-weight: bold;">Area</label>
+                  <input type="text" pInputText  placeholder="Area" formControlName="oArea"  [style]="{'width': '100%'}" inputId="Area"/> 
+                  
+                  <br><br>
+
+                  <label for="Budget" style="display: block; font-weight: bold;">Imposta il Budget</label>
+                  <p-inputNumber [(ngModel)]="formModifica.value.budget" [showButtons]="true" [style]="{'width': '300px'}" formControlName="budget" inputId="Budget" [min]="0">
+                  </p-inputNumber>
+                           
+                  <small class="p error block" *ngIf="formModifica.get('budget')?.invalid && formModifica.get('budget')?.dirty" style="color: red;">Inserire correttamente il Budget!</small> 
+                
+                </form> 
+                <br><br>
+                <p-button label="Salva" icon="pi pi-check" styleClass="p-button-outlined p-button-success"
+              (onClick)="submitForm()"></p-button>
+              </div>
+            </div>
+        </p-card>
+        <p-toast position="top-center" [showTransformOptions]="'translateY(100%)'" [showTransitionOptions]="'1000ms'" [hideTransitionOptions]="'1000ms'" [showTransformOptions]="'translateX(100%)'" [style]="{'width': '30%', 'font-weight':'bold'}"></p-toast>
+

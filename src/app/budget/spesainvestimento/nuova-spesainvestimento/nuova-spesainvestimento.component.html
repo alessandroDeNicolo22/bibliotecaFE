@@ -1,0 +1,31 @@
+<div class="container-fluid">
+    <div class="row">
+      <div class="col">
+        <p-card header="Nuova Spesa Investimento" [style]="{ width: '700px', height: '700px' }" class="d-flex align-items-center justify-content-center" subheader="Inserisci una nuova Spesa Investimento.">
+          <ng-template pTemplate="header">
+            <img alt="Card" src="https://primefaces.org/cdn/primeng/images/usercard.png" />
+        </ng-template>
+            <div class="row">
+              <div class="col text-center py-4">
+                <br>
+                <form [formGroup]="formNuovo">
+                    <label for="Spesa" style="display: block; font-weight: bold;">Spesa Investimento</label>
+                    <input type="text" pInputText [(ngModel)]="formNuovo.value.spesainvestimento"  placeholder="Spesainvestimento" formControlName="spesainvestimento"   [style]="{'width': '100%'}" inputId="Spesa"/> 
+                  
+                  <small class="p error block" *ngIf="formNuovo.get('spesainvestimento')?.invalid && formNuovo.get('spesainvestimento')?.dirty" style="color: red;">Inserire correttamente la Spesainvestimento!</small>
+                  <br><br>
+                  <label for="Sottocategoria" style="display: block; font-weight: bold;">Sottocategoria</label>
+                  <p-dropdown [options]="elencoSottocategoria" [(ngModel)]="formNuovo.value.sottocategoria" optionLabel="sottocategoria" formControlName="oSottocategoria" [style]="{'width': '100%'}" inputId="float-label" placeholder="Seleziona un'Area"></p-dropdown>
+                  
+                  <small class="p error block" *ngIf="formNuovo.get('oSottocategoria')?.invalid && formNuovo.get('oSottocategoria')?.dirty" style="color: red;">Inserire correttamente la Sottocategoria!</small>  
+                </form> 
+                <br><br>
+                <p-button label="Salva" icon="pi pi-check" styleClass="p-button-outlined p-button-success"
+              (onClick)="submitForm()"></p-button>
+              </div>
+            </div>
+        </p-card>
+        <p-toast position="top-center" [showTransformOptions]="'translateY(100%)'" [showTransitionOptions]="'1000ms'" [hideTransitionOptions]="'1000ms'" [showTransformOptions]="'translateX(100%)'" [style]="{'width': '30%', 'font-weight':'bold'}"></p-toast>
+      </div>
+    </div>
+  </div>

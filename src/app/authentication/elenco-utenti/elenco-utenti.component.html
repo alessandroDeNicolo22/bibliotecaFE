@@ -1,0 +1,44 @@
+<div class="container-fluid">
+    <div class="row">
+      <div class="col">
+          <p-toast position="top-center" [showTransformOptions]="'translateY(100%)'" [showTransitionOptions]="'1000ms'" [hideTransitionOptions]="'1000ms'" [showTransformOptions]="'translateX(100%)'" [style]="{'width': '30%', 'font-weight':'bold'}"></p-toast>
+
+          <p-table [value]="elenco" [scrollHeight]="'400px'" [scrollable]="true" styleClass="p-datatable-striped" [tableStyle]="{ 'min-width': '50rem', 'width':'100%' }">
+            <ng-template pTemplate="caption">
+                <div class="header" >
+                    <h1 style="font-weight: bold;">Elenco Utenti.</h1>
+                </div>
+            </ng-template>
+          <ng-template pTemplate="header">
+            <tr>
+              <th style="min-width:200px">Nome</th>
+              <th style="min-width:200px">Cognome</th>
+              <th style="min-width:200px">Email</th>
+              <th style="min-width:200px">Ruolo</th>
+              <th></th>
+              <th></th>
+          </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-utente>
+            <tr>
+              <tr>
+                <td>{{utente.nome}}</td>
+                <td>{{utente.cognome}}</td>
+                <td>{{utente.email}}</td>
+                <td>{{utente.role}}</td>
+                <td><p-button icon="pi pi-pencil" pTooltip="Modifica" (onClick)="update(utente.id)" styleClass="p-button-rounded p-button-outlined">
+                </p-button></td>
+                <td><p-button (onClick)="deleteUtente(utente.id)" icon="pi pi-trash" class="p-button-danger" pTooltip="Elimina" styleClass="p-button-rounded p-button-danger p-button-outlined"></p-button></td>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="summary">
+            <div class="flex align-items-center justify-content-between">
+                In total there are {{totRows ? totRows : 0 }} elements.
+            </div>
+        </ng-template>
+        </p-table>
+        <p-paginator (onPageChange)="onPageChange($event)" [first]="pageIndex" [totalRecords]="totRows" [rows]="pageSize" [rowsPerPageOptions]="[3, 5, 10]" [style]="{ 'border-radius':'0px' }" ></p-paginator>
+        <p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>
+      </div>
+      </div>
+    </div>

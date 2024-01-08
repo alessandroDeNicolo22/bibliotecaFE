@@ -1,0 +1,49 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <p-toast position="top-center" [showTransformOptions]="'translateY(100%)'" [showTransitionOptions]="'1000ms'"
+        [hideTransitionOptions]="'1000ms'" [showTransformOptions]="'translateX(100%)'"
+        [style]="{'width': '30%', 'font-weight':'bold'}"></p-toast>
+      <p-card header="Login." [style]="{ width: '700px', height: '750px' }"
+        class="d-flex align-items-center justify-content-center" subheader="Accedi per accedere alle nostre funzioni.">
+        <ng-template pTemplate="header">
+          <img alt="Card" src="https://primefaces.org/cdn/primeng/images/usercard.png" />
+        </ng-template>
+        <div class="row">
+          <div class="col text-center py-4">
+            <br>
+            <form [formGroup]="formLog">
+              <div class="grid">
+                <div class="col-5 flex align-items-center justify-content-center">
+                  <div class="p-fluid">
+                    <div class="field">
+                      <label for="username">Email</label>
+                      <input pInputText id="username" type="text" formControlName="email"
+                        pTooltip="Inserisci la tua email" />
+                    </div>
+                    <div class="field">
+                      <label for="password">Password</label>
+                      <p-password formControlName="password" [feedback]="false" 
+                        [toggleMask]="true" id="password" pTooltip="Inserisci la password."></p-password>
+                    </div>
+                    <p-button label="Accedi" icon="pi pi-sign-in" styleClass="p-button-outlined p-button-success"
+                      (onClick)="submitForm()"></p-button>
+                  </div>
+                </div>
+                <div class="col-2">
+                  <p-divider layout="vertical">
+                    <b>OR</b>
+                  </p-divider>
+                </div>
+                <div class="col-5 flex align-items-center justify-content-center">
+                  <p-button label="Registrati" styleClass="p-button-outlined p-button-info"
+                    routerLink="../registrazione" icon="pi pi-user-plus" [style]="{ 'margin-left': '.5em' }"></p-button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </p-card>
+    </div>
+  </div>
+</div>

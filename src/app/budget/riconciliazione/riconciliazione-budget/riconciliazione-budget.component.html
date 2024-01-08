@@ -1,0 +1,49 @@
+<div class="container-fluid" >
+    <div class="row">
+      <div class="col" >
+          <p-toast position="top-center" [showTransformOptions]="'translateY(100%)'" [showTransitionOptions]="'1000ms'" [hideTransitionOptions]="'1000ms'" [showTransformOptions]="'translateX(100%)'" [style]="{'width': '30%', 'font-weight':'bold'}"></p-toast>
+        
+          <p-table [value]="elenco" styleClass="p-datatable-striped" [scrollHeight]="'400px'" [scrollable]="true">
+            <ng-template pTemplate="caption">
+                <div class="header" >
+                    <h1 style="font-weight: bold;">Riconciliazione del Budget.</h1>
+                    <span class="p-input-icon-left ml-auto">
+                      <form [formGroup]="formNuovo">
+                        <label for="Provincia" style="display: block; font-weight: bold;">First Date - End Date</label>
+                        <p-calendar selectionMode="range" [readonlyInput]="true" (onSelect)="submitForm()" formControlName="rangeDates"></p-calendar>
+                      <small class="p error block" *ngIf="formNuovo.get('rangeDates')?.invalid && formNuovo.get('rangeDates')?.dirty" style="color: red;">Inserire correttamente le Date!</small>
+                      </form>
+                    </span>
+                </div>
+            </ng-template>
+          <ng-template pTemplate="header">
+            <tr>
+              <th style="min-width:200px">Codice</th>
+              <th style="min-width:200px">Sottocategoria</th>
+              <th style="min-width:200px">Area</th>
+              <th style="min-width:200px">Budget</th>
+              <th style="min-width:200px">Budget Speso</th>
+          </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-sottoC>
+            <tr>
+              <tr>
+                <td>{{sottoC.codice}}</td>
+                <td>{{sottoC.sottocategoria}}</td>
+                <td>{{sottoC.oArea.area}}</td>
+                <td>{{sottoC.budget | currency : 'EUR'}}</td>
+                <td>{{sottoC.budgetSpeso | currency : 'EUR'}}</td>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="summary" [style]="{ 'position': 'sticky', 'top': 0 }" >
+            <div class="flex align-items-center justify-content-between">
+                In total there are {{totRows ? totRows : 0 }} elements.
+            </div>
+        </ng-template>
+        </p-table>
+       
+        <p-paginator (onPageChange)="onPageChange($event)" [first]="pageIndex" [totalRecords]="totRows" [rows]="pageSize" [rowsPerPageOptions]="[3, 5, 10]" [style]="{ 'border-radius':'0px' }" ></p-paginator>
+      
+      </div>
+      </div>
+    </div>

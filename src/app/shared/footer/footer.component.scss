@@ -1,0 +1,52 @@
+.footer-content {
+  width: 100%;
+  z-index: 100;
+  text-align: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: #000000;
+  color: aliceblue;
+  bottom: 0;
+}
+
+.footer-column {
+  flex: 2;
+  text-align: center;
+}
+
+.footer-legals {
+  width: 100%;
+  z-index: 100;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  background-color: #000000;
+  color: aliceblue;
+}
+.color-change-text {
+  font-size: 24px;
+  font-weight: bold;
+  color: rgb(255, 255, 255);
+  transition: color 0.3s; /* Animazione del cambio colore */
+}
+
+.color-change-text:hover {
+  color: rgb(255, 200, 0); /* Colore al passaggio del mouse */
+}
+.main-container {
+  height: auto;
+  background: linear-gradient(to bottom, #00aa47, white);
+  padding: 20px;
+  border-radius: 5px;
+}
+.content-container {
+  height: 300px;
+  text-align: center;
+}
+
+
+  

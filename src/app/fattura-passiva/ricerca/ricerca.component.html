@@ -1,0 +1,116 @@
+<div class="container-fluid" style="padding-top: 150px;">
+    <div class="row">
+        <div class="col">
+            <p-toast position="top-center" [showTransformOptions]="'translateY(100%)'"
+                [showTransitionOptions]="'1000ms'" [hideTransitionOptions]="'1000ms'"
+                [showTransformOptions]="'translateX(100%)'" [style]="{'width': '30%', 'font-weight':'bold'}"></p-toast>
+
+            <p-table [value]="elenco" [scrollHeight]="'400px'" [scrollable]="true"
+                styleClass="p-datatable-striped" [tableStyle]="{ 'min-width': '50rem', 'width':'100%' }">
+                <ng-template pTemplate="caption">
+                    <div class="header">
+                        <h1 style="font-weight: bold;">Ricerca Fattura Passiva.</h1>
+
+                        <form [formGroup]="formNuovo">
+                            <label style="display: block; font-weight: bold;">Tipologia</label>
+                            <p-dropdown [options]="types" formControlName="tipo" [style]="{'width': '254.4px'}"></p-dropdown>
+                            <label style="display: block; font-weight: bold;"
+                                *ngIf="formNuovo.value.tipo === 'Fornitore'">Fornitore</label>
+                            <label style="display: block; font-weight: bold;"
+                                *ngIf="formNuovo.value.tipo === 'Preventivo'">Preventivo</label>
+                            <label style="display: block; font-weight: bold;"
+                                *ngIf="formNuovo.value.tipo === 'Sottocategoria'">Sottocategoria</label>
+                            <p-dropdown *ngIf="formNuovo.value.tipo === 'Fornitore'" [options]="elencoFornitore"
+                                optionLabel="ragioneSociale" optionValue="id" formControlName="id"
+                                [style]="{'width': '254.4px'}" inputId="float-label"
+                                placeholder="Seleziona un Fornitore" (onChange)="submitForm()"></p-dropdown>
+                            <p-dropdown *ngIf="formNuovo.value.tipo === 'Preventivo'" [options]="elencoPreventivi"
+                                optionLabel="preventivo" optionValue="id" formControlName="id"
+                                [style]="{'width': '254.4px'}" inputId="float-label"
+                                placeholder="Seleziona un Preventivo" (onChange)="submitForm()"></p-dropdown>
+                            <p-dropdown *ngIf="formNuovo.value.tipo === 'Sottocategoria'"
+                                [options]="elencoSottocategoria" optionLabel="sottocategoria" optionValue="id"
+                                formControlName="id" [style]="{'width': '254.4px'}" inputId="float-label"
+                                placeholder="Seleziona una Sottocategoria" (onChange)="submitForm()"></p-dropdown>
+                            <label for="Provincia" style="display: block; font-weight: bold;">First Date - End
+                                Date</label>
+                            <p-calendar selectionMode="range" [readonlyInput]="true" (onSelect)="submitForm()"
+                                formControlName="rangeDates" [style]="{'width': '254.4px'}"></p-calendar>
+                        </form>
+
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="min-width:200px">Data</th>
+                        <th style="min-width:200px">Numero</th>
+                        <th style="min-width:200px">Descrizione</th>
+                        <th style="min-width:200px">Fornitore</th>
+                        <th style="min-width:200px">Dettagli</th>
+
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-ordine>
+                    <tr>
+                    <tr>
+                        <td>{{ordine.data | date: 'dd/MM/yyyy'}}</td>
+                        <td>{{ordine.numero}}</td>
+                        <td>{{ordine.descrizione}}</td>
+                        <td>{{ordine.oFornitore.ragioneSociale }}</td>
+                        <td><p-button icon="pi pi-folder-open" pTooltip="Dettagli"
+                                styleClass="p-button-rounded p-button-help p-button-outlined"
+                                (onClick)="openDetails(ordine.id)">
+                            </p-button></td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="summary">
+                    <div class="flex align-items-center justify-content-between">
+                        In total there are {{totRows ? totRows : 0 }} elements.
+                    </div>
+                </ng-template>
+            </p-table>
+            <p-paginator (onPageChange)="onPageChange($event)" [first]="pageIndex" [totalRecords]="totRows"
+                [rows]="pageSize" [rowsPerPageOptions]="[3, 5, 10]" [style]="{ 'border-radius':'0px' }"></p-paginator>
+            <p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>
+            <p-dialog header="Dettagli della Fattura" [(visible)]="visible" [style]="{width: '50vw'}">
+                <p-table [value]="dettagli" [tableStyle]="{ 'min-width': '50rem', 'width':'100%' }"
+                    styleClass="p-datatable-striped">
+                    <ng-template pTemplate="caption">
+                        <div class="header">
+                            <h1 style="font-weight: bold;">Dettagli Fattura Passiva.</h1>
+                        </div>
+                    </ng-template>
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th style="min-width:200px">Spesa Investimento</th>
+                            <th style="min-width:200px">Aliquota Iva</th>
+                            <th style="min-width:200px">Preventivo</th>
+                            <th style="min-width:200px">Importo</th>
+                            <th style="min-width:200px">Dettaglio Fattura</th>
+
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-ordine>
+                        <tr>
+                        <tr>
+                            <td>{{ordine.oSpesainvestimento.spesainvestimento}}</td>
+                            <td>{{ordine.oAliquotaiva.descrizione }}</td>
+                            <td>{{ordine.oPreventivo.preventivo}}</td>
+                            <td>{{ordine.importo | currency : 'EUR'}}</td>
+                            <td>{{ordine.dettaglioFattura}}</td>
+
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="summary">
+                        <div class="flex align-items-center justify-content-between">
+                            In total there are {{totRowsd ? totRowsd : 0 }} elements.
+                        </div>
+                    </ng-template>
+                </p-table>
+                <p-paginator (onPageChange)="onPageChange1($event)" [first]="pageIndexd" [totalRecords]="totRowsd"
+                    [rows]="pageSized" [rowsPerPageOptions]="[3, 5, 10]"
+                    [style]="{ 'border-radius':'0px' }"></p-paginator>
+            </p-dialog>
+        </div>
+    </div>
+</div>

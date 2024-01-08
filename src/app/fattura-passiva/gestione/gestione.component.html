@@ -1,0 +1,93 @@
+<div class="container-fluid">
+    <div class="row">
+      <div class="col">
+          <p-toast position="top-center" [showTransformOptions]="'translateY(100%)'" [showTransitionOptions]="'1000ms'" [hideTransitionOptions]="'1000ms'" [showTransformOptions]="'translateX(100%)'" [style]="{'width': '30%', 'font-weight':'bold'}"></p-toast>
+
+          <p-table [value]="elenco" styleClass="p-datatable-striped" [scrollHeight]="'400px'" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem', 'width':'100%' }">
+            <ng-template pTemplate="caption">
+                <div class="header" >
+                    <h1 style="font-weight: bold;">Gestione Fatture Passive</h1>
+                    <span class="p-input-icon-left ml-auto">
+                      <form [formGroup]="formNuovo">
+                        <label style="display: block; font-weight: bold;">Fornitore</label>
+                      <p-dropdown class="dropFornitore" [options]="elencoFornitore" optionLabel="ragioneSociale" optionValue="id" formControlName="oFornitore" [style]="{'width': '254.4px'}" inputId="float-label" placeholder="Seleziona un Fornitore" (onChange)="submitForm()"></p-dropdown>
+                      </form>
+                    </span>
+                </div>
+            </ng-template>
+          <ng-template pTemplate="header">
+            <tr>
+              <th style="min-width:200px">Descrizione</th>
+              <th style="min-width:200px">Numero</th>
+              <th style="min-width:200px">Data</th>
+              <th style="min-width:200px">Fornitore</th>
+              <th></th>
+              <th></th>
+              <th><p-button icon="pi pi-plus" pTooltip="Aggiungi" routerLink="../nuovo"  styleClass="p-button-rounded p-button-success p-button-outlined">
+              </p-button></th>
+          </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-fattura>
+            <tr>
+              <tr>
+                <td>{{fattura.descrizione}}</td>  
+                <td>{{fattura.numero}}</td>
+                <td>{{fattura.data | date: 'dd/MM/yyyy'}}</td>
+                <td>{{fattura.oFornitore.ragioneSociale }}</td>
+                <td> <p-button icon="pi pi-pencil" pTooltip="Modifica" routerLink="../modifica/{{fattura.id}}" styleClass="p-button-rounded p-button-outlined">
+                </p-button></td>
+                <td><p-button (click)="deleteFattura(fattura.id)" icon="pi pi-trash" class="p-button-danger" pTooltip="Elimina" styleClass="p-button-rounded p-button-danger p-button-outlined"></p-button></td>
+                <td><p-button icon="pi pi-folder-open" pTooltip="Dettagli" styleClass="p-button-rounded p-button-help p-button-outlined" (onClick)="openDetails(fattura.id)">
+                </p-button></td>
+              </tr>
+          </ng-template>
+          <ng-template pTemplate="summary">
+            <div class="flex align-items-center justify-content-between">
+                In totale ci sono {{totRows ? totRows : 0 }} elements.
+            </div>
+        </ng-template>
+        </p-table>
+        <div class="row">
+        <p-paginator (onPageChange)="onPageChange($event)" [first]="pageIndex" [totalRecords]="totRows" [rows]="pageSize" [rowsPerPageOptions]="[3,5,10]" [style]="{ 'border-radius':'0px' }"></p-paginator>
+      </div>
+        <p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>
+        <p-dialog header="Dettagli della Fattura" [(visible)]="visible" [style]="{width: '50vw'}">
+          <p-table [value]="dettagli" [tableStyle]="{ 'min-width': '50rem', 'width':'100%' }" styleClass="p-datatable-striped">
+            <ng-template pTemplate="caption">
+                <div class="header" >
+                    <h1 style="font-weight: bold;">Dettagli Fattura Passiva</h1>
+                </div>
+            </ng-template>
+          <ng-template pTemplate="header">
+            <tr>
+              <th style="min-width:200px">Aliquota Iva</th>
+              <th style="min-width:200px">Fattura Passiva</th>
+              <th style="min-width:200px">Preventivo</th>
+              <th style="min-width:200px">Spesa Investimento</th>
+              <th style="min-width:200px">Dettaglio Fattura</th>
+              <th style="min-width:200px">Importo</th>
+
+          </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-fattura>
+            <tr>
+              <tr>
+                <td>{{fattura.oAliquotaiva.aliquota}}</td>  
+                <td>{{fattura.oFatturapassiva.descrizione}}</td>
+                <td>{{fattura.oPreventivo.preventivo}}</td>
+                <td>{{fattura.oSpesainvestimento.spesainvestimento}}</td>
+                <td>{{fattura.dettaglioFattura}}</td>
+                <td>{{fattura.importo | currency:"EUR"}}</td>
+              </tr>
+          </ng-template>
+          <ng-template pTemplate="summary">
+            <div class="flex align-items-center justify-content-between">
+                In totale ci sono {{totRowsd ? totRowsd : 0 }} elementi.
+            </div>
+        </ng-template>
+        </p-table>
+        <p-paginator (onPageChange)="onPageChange1($event)" [first]="pageIndexd" [totalRecords]="totRowsd" [rows]="pageSized"  [rowsPerPageOptions]="[3, 5, 10]" [style]="{ 'border-radius':'0px' }" ></p-paginator>
+      </p-dialog>
+      </div>
+      </div>
+    </div>

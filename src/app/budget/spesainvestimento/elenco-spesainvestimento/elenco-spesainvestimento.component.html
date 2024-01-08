@@ -1,0 +1,48 @@
+<div class="container-fluid">
+    <div class="row">
+      <div class="col">
+          <p-toast position="top-center" [showTransformOptions]="'translateY(100%)'" [showTransitionOptions]="'1000ms'" [hideTransitionOptions]="'1000ms'" [showTransformOptions]="'translateX(100%)'" [style]="{'width': '30%', 'font-weight':'bold'}"></p-toast>
+
+          <p-table [value]="elenco" [scrollHeight]="'400px'" [scrollable]="true" styleClass="p-datatable-striped" [tableStyle]="{ 'min-width': '50rem', 'width':'100%' }">
+            <ng-template pTemplate="caption">
+                <div class="header" >
+                    <h1 style="font-weight: bold;">Ricerca Speseinvestimento.</h1>
+                    <span class="p-input-icon-left ml-auto">
+                      <form [formGroup]="form">
+                        <label for="Sottocategoria" style="display: block; font-weight: bold;">Ricerca per Sottocategoria:</label>
+                        <p-dropdown [options]="elencoSottocategoria" optionLabel="sottocategoria" optionValue="id" formControlName="sottocategoria" [style]="{'width': '254.4px'}" inputId="float-label" placeholder="Seleziona una Sottocategoria" (onChange)="submitForm()"></p-dropdown>
+                      <small class="p error block" *ngIf="form.get('sottocategoria')?.invalid && form.get('sottocategoria')?.dirty" style="color: red;">Inserire correttamente la Sottocategoria</small>
+                      </form>
+                    </span>
+                </div>
+            </ng-template>
+          <ng-template pTemplate="header">
+            <tr>
+              <th style="min-width:200px">Spesainvestimento</th>
+              <th style="min-width:200px">Sottocategoria</th>
+              <th></th>
+              <th><p-button icon="pi pi-plus" pTooltip="Aggiungi" (onClick)="add()"  styleClass="p-button-rounded p-button-success p-button-outlined">
+            </p-button></th>
+          </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-spesaI>
+            <tr>
+              <tr>
+                <td>{{spesaI.spesainvestimento}}</td>
+                <td>{{spesaI.oSottocategoria.sottocategoria}}</td>
+                <td><p-button icon="pi pi-pencil" pTooltip="Modifica" (onClick)="update(spesaI)" styleClass="p-button-rounded p-button-outlined">
+                </p-button></td>
+                <td><p-button (click)="deleteSpesa(spesaI.id)" icon="pi pi-trash" class="p-button-danger" pTooltip="Elimina" styleClass="p-button-rounded p-button-danger p-button-outlined"></p-button></td>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="summary">
+            <div class="flex align-items-center justify-content-between">
+                In total there are {{totRows ? totRows : 0 }} elements.
+            </div>
+        </ng-template>
+        </p-table>
+        <p-paginator  [first]="pageIndex" [totalRecords]="totRows" [rows]="pageSize" [rowsPerPageOptions]="[3, 5, 10]" [style]="{ 'border-radius':'0px' }" (onPageChange)="onPageChange($event)"></p-paginator>
+        <p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>  
+    </div>
+      </div>
+    </div>

@@ -1,0 +1,69 @@
+<div class="container-fluid">
+    <div class="row">
+      <div class="col">
+        <p-card header="Registrazione Utente." [style]="{ width: '700px', height: '750px' }"
+          class="d-flex align-items-center justify-content-center" subheader="Regidtrati alla nostra piattaforma!">
+          <ng-template pTemplate="header">
+            <img alt="Card" src="https://primefaces.org/cdn/primeng/images/usercard.png" />
+          </ng-template>
+          <div class="row">
+            <div class="col text-center py-4">
+              <br>
+  
+              <form [formGroup]="formReg">
+                <div class="row">
+                  <div class="col-md-6">
+                    <label for="nome" style="font-weight: bold;">Nome*</label>
+                    <input type="text" pInputText  formControlName="nome"
+                      placeholder="Inserisci il Nome"  [style]="{'width': '100%'}">
+                    <small class="p error block"
+                      *ngIf="formReg.get('nome')?.invalid && formReg.get('nome')?.dirty"
+                      style="color: red;">Inserire correttamente il nome!</small>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="cognome" style="font-weight: bold;">Cognome*</label>
+                    <input type="text" pInputText  placeholder="Inserisci il Cognome"
+                      formControlName="cognome" style="width: 100%;" />
+                    <small class="p error block"
+                      *ngIf="formReg.get('cognome')?.invalid && formReg.get('cognome')?.dirty"
+                      style="color: red;">Inserire correttamente il Cognome!</small>
+                  </div>
+                </div>
+                <br><br>
+                <div class="row">
+                  <div class="col-md-6">
+                    <label for="email" style="font-weight: bold;">Email*</label>
+                    <input type="text" pInputText  placeholder="Inserisci la Mail"
+                      formControlName="email" [style]="{'width': '100%'}" />
+                    <small class="p error block"
+                      *ngIf="formReg.get('email')?.invalid && formReg.get('email')?.dirty"
+                      style="color: red;">Inserire correttamente la Mail!</small>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="password" style="font-weight: bold;">Password*</label>
+                    <p-password formControlName="password"   [style]="{'width': '100%'}" [toggleMask]="true"></p-password>
+                  </div>
+                </div>
+                <br><br>
+                <div class="row">
+                  <div class="col-md-6">
+                    <label for="ruolo" style="font-weight: bold;">Ruolo*</label>
+                    <p-dropdown  [options]="ruoli" formControlName="ruolo" [style]="{'width': '100%'}" inputId="float-label" placeholder="Seleziona una un Ruolo"></p-dropdown>
+                    <small class="p error block"
+                      *ngIf="formReg.get('ruolo')?.invalid && formReg.get('ruolo')?.dirty"
+                      style="color: red;">Inserire correttamente il Ruolo</small>
+                  </div>
+                </div>
+              </form>
+              <br><br>
+              <p-button label="Salva" icon="pi pi-check" styleClass="p-button-outlined p-button-success"
+                (onClick)="submitForm()"></p-button>
+              <p-button label="Indietro" icon="pi pi-times" styleClass="p-button-outlined p-button-secondary"
+                [style]="{ 'margin-left': '.5em' }" routerLink=""></p-button>
+            </div>
+          </div>
+        </p-card>
+        <p-toast position="top-center" [showTransformOptions]="'translateY(100%)'" [showTransitionOptions]="'1000ms'" [hideTransitionOptions]="'1000ms'" [showTransformOptions]="'translateX(100%)'" [style]="{'width': '30%', 'font-weight':'bold'}"></p-toast>
+      </div>
+    </div>
+  </div>

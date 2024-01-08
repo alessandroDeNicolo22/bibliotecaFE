@@ -1,0 +1,40 @@
+<div class="container-fluid">
+    <div class="row">
+      <div class="col">
+        <p-card header="Modifica Sottocategoria" [style]="{ width: '700px', height: '750px' }" class="d-flex align-items-center justify-content-center" subheader="Modifica la Sottocategoria selezionata.">
+          <ng-template pTemplate="header">
+            <img alt="Card" src="https://primefaces.org/cdn/primeng/images/usercard.png" />
+        </ng-template>
+            <div class="row">
+              <div class="col text-center py-4">
+                <br>
+                <form [formGroup]="formModifica">
+                    <label for="Codice" style="display: block; font-weight: bold;">Codice</label>
+                    <input type="text" pInputText [(ngModel)]="formModifica.value.codice"  placeholder="Codice" formControlName="codice"  [style]="{'width': '100%'}" inputId="Codice"/> 
+                
+                  <small class="p error block" *ngIf="formModifica.get('codice')?.invalid && formModifica.get('codice')?.dirty" style="color: red;">Inserire correttamente il Codice!</small>
+                  <br><br>
+                  <label for="Sottocategoria" style="display: block; font-weight: bold;">Sottocategoria</label>
+                  <input type="text" pInputText [(ngModel)]="formModifica.value.sottocategoria"  placeholder="Sottocategoria" formControlName="sottocategoria"  [style]="{'width': '100%'}" inputId="Sottocategoria"/> 
+                  
+                  <small class="p error block" *ngIf="formModifica.get('sottocategoria')?.invalid && formModifica.get('sottocategoria')?.dirty" style="color: red;">Inserire correttamente la Sottocategoria!</small>  
+                  <br><br>
+                  <label for="Provincia" style="display: block; font-weight: bold;">Area</label>
+                  <p-dropdown [options]="elencoAree" [(ngModel)]="formModifica.value.oArea" optionLabel="area" optionValue="id" formControlName="oArea" [style]="{'width': '100%'}" inputId="float-label" placeholder="Seleziona un'Area"></p-dropdown>
+                  
+                  <small class="p error block" *ngIf="formModifica.get('area')?.invalid && formModifica.get('area')?.dirty" style="color: red;">Inserire correttamente l'Area!</small>
+                  <br><br>
+                  
+                </form> 
+                <br><br>
+                <p-button label="Salva" icon="pi pi-check" styleClass="p-button-outlined p-button-success"
+              (onClick)="submitForm()"></p-button>
+            <p-button label="Indietro" icon="pi pi-times" styleClass="p-button-outlined p-button-secondary"
+              [style]="{ 'margin-left': '.5em' }" routerLink="../../elenco"></p-button>
+              </div>
+            </div>
+        </p-card>
+        <p-toast position="top-center" [showTransformOptions]="'translateY(100%)'" [showTransitionOptions]="'1000ms'" [hideTransitionOptions]="'1000ms'" [showTransformOptions]="'translateX(100%)'" [style]="{'width': '30%', 'font-weight':'bold'}"></p-toast>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,119 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <p-toast position="top-center" [showTransformOptions]="'translateY(100%)'" [showTransitionOptions]="'1000ms'"
+        [hideTransitionOptions]="'1000ms'" [showTransformOptions]="'translateX(100%)'"
+        [style]="{'width': '30%', 'font-weight':'bold'}"></p-toast>
+      <p-card header="Modifica Utente." [style]="{ width: 'auto', height: 'auto' }"
+        class="d-flex align-items-center justify-content-center" subheader="Modifica l'utente selezionato.">
+        <ng-template pTemplate="header">
+          <img alt="Card" src="https://primefaces.org/cdn/primeng/images/usercard.png" />
+        </ng-template>
+        <div class="row">
+          <div class="col text-center py-4">
+            <br>
+
+            <form [formGroup]="formReg">
+              <div class="row">
+                <div class="col-md-6">
+                  <label for="nome" style="font-weight: bold;">Nome*</label>
+                  <input type="text" pInputText formControlName="nome" placeholder="Inserisci il Nome"
+                    [style]="{'width': '100%'}">
+                  <small class="p error block" *ngIf="formReg.get('nome')?.invalid && formReg.get('nome')?.dirty"
+                    style="color: red;">Inserire correttamente il nome!</small>
+                </div>
+                <div class="col-md-6">
+                  <label for="cognome" style="font-weight: bold;">Cognome*</label>
+                  <input type="text" pInputText placeholder="Inserisci il Cognome" formControlName="cognome"
+                    style="width: 100%;" />
+                  <small class="p error block" *ngIf="formReg.get('cognome')?.invalid && formReg.get('cognome')?.dirty"
+                    style="color: red;">Inserire correttamente il Cognome!</small>
+                </div>
+              </div>
+              <br><br>
+              <div class="row">
+                <div class="col-md-6">
+                  <label for="email" style="font-weight: bold;">Email*</label>
+                  <input type="text" pInputText placeholder="Inserisci la Mail" formControlName="email"
+                    [style]="{'width': '100%'}" />
+                  <small class="p error block" *ngIf="formReg.get('email')?.invalid && formReg.get('email')?.dirty"
+                    style="color: red;">Inserire correttamente la Mail!</small>
+                </div>
+                <div class="col-md-6">
+                  <label for="ruolo" style="font-weight: bold;">Ruolo*</label>
+                  <p-dropdown [options]="ruoli" formControlName="ruolo" [style]="{'width': '100%'}"
+                    inputId="float-label" placeholder="Seleziona una un Ruolo"></p-dropdown>
+                  <small class="p error block" *ngIf="formReg.get('ruolo')?.invalid && formReg.get('ruolo')?.dirty"
+                    style="color: red;">Inserire correttamente il Ruolo</small>
+                </div>
+              </div>
+            </form>
+            <br><br>
+            <p-button label="Salva" icon="pi pi-check" styleClass="p-button-outlined p-button-success"
+              (onClick)="submitForm()"></p-button>
+            <p-button label="Indietro" icon="pi pi-times" styleClass="p-button-outlined p-button-secondary"
+              [style]="{ 'margin-left': '.5em' }" (onClick)="torna()"></p-button>
+            <br><br>
+            <p-button (onClick)="modPassword()" label="Modifica password" styleClass="p-button-link"></p-button>
+          </div>
+        </div>
+      </p-card>
+
+      <p-dialog header="Modifica password" [(visible)]="visible" [style]="{width: '50vw'}">
+        <form [formGroup]="formPass">
+          <div class="row">
+
+            <div class="col-md-6">
+              <label for="passwordV" style="font-weight: bold;" *ngIf="visible1 === false">Vecchia password*</label>
+              <p-password formControlName="passwordV"  [feedback]="false"
+                [style]="{'width': '100%'}" [toggleMask]="true" *ngIf="visible1 === false"></p-password>
+              <small class="p error block" *ngIf="formReg.get('passwordV')?.invalid && formReg.get('passwordV')?.dirty"
+                style="color: red;">Inserire correttamente la password!</small>
+              <!-- --------------------------------------------------------------------------------------------- -->
+              <label for="passwordN" style="font-weight: bold;" *ngIf="visible1 === true">Nuova password*</label>
+              <p-password formControlName="passwordN"  [feedback]="false"
+                [style]="{'width': '100%'}" [toggleMask]="true" *ngIf="visible1 === true"></p-password>
+              <small class="p error block" *ngIf="formReg.get('passwordN')?.invalid && formReg.get('passwordN')?.dirty"
+                style="color: red;">Inserire correttamente la password!</small>
+            </div>
+            <br><br>
+            <div class="col-md-6">
+              <label for="passwordN" style="font-weight: bold;" *ngIf="visible1 === false">Conferma vecchia
+                password*</label>
+              <p-password formControlName="passwordVC" [feedback]="false" [style]="{'width': '100%'}" [toggleMask]="true"
+                *ngIf="visible1 === false"></p-password>
+              <small class="p error block" *ngIf="formReg.get('passwordVC')?.invalid && formReg.get('passwordVC')?.dirty"
+                style="color: red;">Inserire correttamente la password!</small>
+              <!-- -------------------------------------------------------------------------------------------- -->
+              <label for="passwordN" style="font-weight: bold;" *ngIf="visible1 === true">Conferma nuova
+                password*</label>
+              <p-password formControlName="passwordNC" [feedback]="false" [style]="{'width': '100%'}" [toggleMask]="true"
+                *ngIf="visible1 === true"></p-password>
+              <small class="p error block" *ngIf="formReg.get('passwordNC')?.invalid && formReg.get('passwordNC')?.dirty"
+                style="color: red;">Inserire correttamente la password!</small>
+            </div>
+          </div>
+          <br><br>
+          <div class="row">
+            <div class="col-md-6">
+              
+              <p-button id="salva" icon="pi pi-check" label="Conferma" *ngIf="visible1 === false"
+                styleClass="p-button-outlined p-button-success" (onClick)="verificaPassword()" icon="pi pi-save">
+              </p-button>
+              <p-button id="salva" icon="pi pi-check" label="Salva" *ngIf="visible1 === true"
+                styleClass="p-button-outlined p-button-success" (onClick)="modificaPassword()" icon="pi pi-save">
+              </p-button>
+            </div>
+            <div class="col-md-6">
+              <p-button label="Chiudi" icon="pi pi-times" 
+                styleClass="p-button-outlined p-button-secondary" [style]="{ 'margin-left': '.5em' }"
+                (onClick)="visible=false"></p-button>
+            </div>
+          </div>
+
+
+        </form>
+      </p-dialog>
+    </div>
+  </div>
+</div>

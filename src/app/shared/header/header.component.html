@@ -1,0 +1,30 @@
+<p-menubar [model]="items" [style]="{'background-color':'black', 'width':'100%', 'border-radius':'0px', 'border':'0px'}" >
+    <ng-template pTemplate="start">
+        <p-button label="{{nomeCognome}}" (click)="sidebarVisible = true" icon="pi pi-user"></p-button>
+    </ng-template>
+    
+    <ng-template pTemplate="end">
+        <p-image src="/assets/img/logo.png" alt="Image" width="200"></p-image>
+    </ng-template>
+</p-menubar>
+<p-sidebar [(visible)]="sidebarVisible">
+    
+    <ng-template pTemplate="header">
+        <h3>Benvenuto {{nomeCognome}}!</h3>
+    </ng-template>
+    <ng-template pTemplate="content">
+        <p-button label='Login' icon="pi pi-sign-in" routerLink='utente/login' styleClass="p-button-raised p-button-text p-button-secondary" [style]="{'width': '100%'}" *ngIf="nomeCognome === ''"></p-button>
+        <br><br>
+        <p-button label="Modifica Utente" (onClick)="modUtente()" icon="pi pi-pencil" styleClass="p-button-raised p-button-text p-button-secondary" [style]="{'width': '100%'}"></p-button>
+        <br><br>
+        <p-button label="Impostazioni" icon="pi pi-cog" styleClass="p-button-raised p-button-text p-button-secondary" [style]="{'width': '100%'}"></p-button>
+        <br><br>
+        <p-button label="Assistenza Clienti" icon="pi pi-wrench" styleClass="p-button-raised p-button-text p-button-secondary" [style]="{'width': '100%'}"></p-button>
+        <br><br>
+        <p-button label="Pagamenti" icon="pi pi-wallet" styleClass="p-button-raised p-button-text p-button-secondary" [style]="{'width': '100%'}"></p-button>
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <p-button (onClick)="logout()" routerLink="" label="Logout" icon="pi pi-sign-out" styleClass="p-button-raised p-button-text p-button-secondary" [style]="{'width': '100%'}"></p-button>
+    </ng-template>
+</p-sidebar>
+

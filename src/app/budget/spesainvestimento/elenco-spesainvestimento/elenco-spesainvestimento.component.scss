@@ -1,0 +1,17 @@
+.container-fluid {
+    background-image: url('/assets/img/finance.jpg');
+  }
+  .header{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+  }
+  :host ::ng-deep .p-inputtext {
+    text-align: center;
+  }
+  .col{
+    max-height: 800px;
+      }
+      .row{
+    max-height: 800px;
+      }

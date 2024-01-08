@@ -1,0 +1,34 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <p-card header="Nuova Aliquota" [style]="{ width: '700px', height: '700px' }" class="d-flex align-items-center justify-content-center" subheader="Inserisci una nuova Aliquotaiva.">
+        <ng-template pTemplate="header">
+          <img alt="Card" src="https://primefaces.org/cdn/primeng/images/usercard.png" />
+      </ng-template>
+          <div class="row">
+            <div class="col text-center py-4">
+              <br>
+              <form [formGroup]="formNuovo">
+                <label for="Aliquota" style="display: block; font-weight: bold;">Aliquotaiva %</label>
+                <p-inputNumber [(ngModel)]="formNuovo.value.aliquota" [showButtons]="true" formControlName="aliquota" inputId="Aliquota" [min]="0" [style]="{'width': '660px'}">
+                </p-inputNumber>
+                <br>
+                <small class="p error block" *ngIf="formNuovo.get('aliquota')?.invalid && formNuovo.get('aliquota')?.dirty" style="color: red;">Inserire correttamente l'Aliquota!</small>
+                <br><br>
+                <label for="Descrizione" style="display: block; font-weight: bold;">Descrizione</label>
+                <input type="text" pInputText [(ngModel)]="formNuovo.value.descrizione" id="descrizione"  placeholder="Aggiungi una Descrizione" formControlName="descrizione"  style="width:100%;" inputId="Descrizione"/> 
+                <br>
+                <small class="p error block" *ngIf="formNuovo.get('descrizione')?.invalid && formNuovo.get('descrizione')?.dirty" style="color: red;">Inserire correttamente la Descrizione!</small>           
+              </form> <br><br>
+              <p-button label="Salva" icon="pi pi-check" styleClass="p-button-outlined p-button-success"
+            (onClick)="submitForm()"></p-button>
+          <p-button label="Indietro" icon="pi pi-times" styleClass="p-button-outlined p-button-secondary"
+            [style]="{ 'margin-left': '.5em' }" routerLink="../elenco"></p-button>
+            </div>
+          </div>
+      </p-card>
+      <p-toast position="top-center" [showTransformOptions]="'translateY(100%)'" [showTransitionOptions]="'1000ms'" [hideTransitionOptions]="'1000ms'" [showTransformOptions]="'translateX(100%)'" [style]="{'width': '30%', 'font-weight':'bold'}"></p-toast>
+    </div>
+  </div>
+</div>
+
