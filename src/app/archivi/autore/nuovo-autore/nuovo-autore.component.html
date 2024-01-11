@@ -1,0 +1,39 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <p-card header="Nuovo Autore" [style]="{ width: '700px', height: '700px' }"
+        class="d-flex align-items-center justify-content-center" subheader="Inserisci un nuovo Autore.">
+        <ng-template pTemplate="header">
+          <img alt="Card" src="https://primefaces.org/cdn/primeng/images/usercard.png" />
+        </ng-template>
+        <div class="row">
+          <div class="col text-center py-4">
+            <br>
+            <form [formGroup]="formNuovo">
+              <label for="Nome" style="display: block; font-weight: bold;">Nome</label>
+              <input type="text" pInputText [(ngModel)]="formNuovo.value.nome" id="nome" formControlName="nome"
+                style="width:100%;" />
+              <br>
+              <small class="p error block" *ngIf="formNuovo.get('nome')?.invalid && formNuovo.get('nome')?.dirty"
+                style="color: red;">Inserire correttamente il Nome!</small>
+              <br><br>
+              <label for="Cognome" style="display: block; font-weight: bold;">Cognome</label>
+              <input type="text" pInputText [(ngModel)]="formNuovo.value.cognome" id="cognome" formControlName="cognome"
+                style="width:100%;" />
+              <br>
+              <small class="p error block" *ngIf="formNuovo.get('cognome')?.invalid && formNuovo.get('cognome')?.dirty"
+                style="color: red;">Inserire correttamente il Cognome!</small>
+            </form> <br><br>
+            <p-button label="Salva" icon="pi pi-check" styleClass="p-button-outlined p-button-success"
+              (onClick)="submitForm()" [disabled]="inputNotEmpty()"></p-button>
+            <p-button label="Indietro" icon="pi pi-times" styleClass="p-button-outlined p-button-secondary"
+              [style]="{ 'margin-left': '.5em' }" routerLink="../elenco"></p-button>
+          </div>
+        </div>
+      </p-card>
+      <p-toast position="top-center" [showTransformOptions]="'translateY(100%)'" [showTransitionOptions]="'1000ms'"
+        [hideTransitionOptions]="'1000ms'" [showTransformOptions]="'translateX(100%)'"
+        [style]="{'width': '30%', 'font-weight':'bold'}"></p-toast>
+    </div>
+  </div>
+</div>

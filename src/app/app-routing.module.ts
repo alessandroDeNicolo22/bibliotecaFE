@@ -15,8 +15,8 @@ const routes: Routes = [
     path: 'home', component: HomepageComponent
   },
   {
-    path: 'aliquota',
-    loadChildren: () => import('./archivi/aliquota-iva/aliquota.module').then(m => m.AliquotaModule),
+    path: 'autore',
+    loadChildren: () => import('./archivi/autore/autore.module').then(m => m.AutoreModule),
     canActivate: [AuthenticationGuard]
   },
   {

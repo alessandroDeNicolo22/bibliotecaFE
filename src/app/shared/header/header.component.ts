@@ -23,22 +23,22 @@ export class HeaderComponent implements OnInit {
       icon:'pi pi-fw pi-bars',
       items:[
     {
-      label: 'Archivi',
-      icon: 'pi pi-fw pi-server',
+      label: 'Caratteristiche Libri',
+      icon: 'pi pi-fw pi-info-circle',
       items: [
         {
-          label: 'Aliquota iva',
-          icon: 'pi pi-fw pi-percentage',
+          label: 'Autore',
+          icon: 'pi pi-fw pi-user-edit',
           items: [
             {
               label: 'Nuovo',
               icon: 'pi pi-fw pi-plus',
-              routerLink: 'aliquota/nuovo'
+              routerLink: 'autore/nuovo'
             },
             {
               label: 'Elenco',
               icon: 'pi pi-fw pi-list',
-              routerLink: 'aliquota/elenco'
+              routerLink: 'autore/elenco'
             }
           ],
         },
