@@ -3,11 +3,9 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { PaginatorState } from 'primeng/paginator';
-import { AliquotaService } from 'src/app/archivi/aliquota-iva/aliquota.service';
 import { FornitoreService } from 'src/app/archivi/fornitore/fornitore.service';
 import { SpesaInvestimentoService } from 'src/app/budget/spesainvestimento/spesainvestimento.service';
 import { PreventivoService } from 'src/app/preventivo/preventivo.service';
-import { AliquotaivaModel } from 'src/app/shared/model/aliquotaiva.model';
 import { FatturaPassivaModel } from 'src/app/shared/model/fattura-passiva.model';
 import { FornitoreModel } from 'src/app/shared/model/fornitore.model';
 import { PreventivoModel } from 'src/app/shared/model/preventivo-model';
@@ -27,14 +25,12 @@ export class ModificaFatturaComponent {
     private router: Router,
     private messageService: MessageService,
     private fornService: FornitoreService,
-    private aliService: AliquotaService,
     private spesaService: SpesaInvestimentoService,
     private preventivoService: PreventivoService,
     private route: ActivatedRoute) { }
 
   formModifica!: FormGroup;
   elencoFornitori!: FornitoreModel[];
-  elencoAliquote!: AliquotaivaModel[];
   elencoSpese!: SpesaInvestimentoModel[];
   elencoPreventivi!: PreventivoModel[];
   formDettaglio!: FormGroup;
@@ -80,10 +76,6 @@ export class ModificaFatturaComponent {
     this.spesaService.getLista().subscribe((elenco: SpesaInvestimentoModel[]) => {
       this.elencoSpese = elenco;
     })
-    this.aliService.getLista().subscribe((elenco: AliquotaivaModel[]) => {
-      this.elencoAliquote = elenco;
-    })
-
     this.route.params.subscribe(
       (params) => {
         this.idFattura = params['id'];
@@ -201,7 +193,6 @@ export class ModificaFatturaComponent {
     this.dettagli[this.index].dettaglioFattura = this.formDettaglio.controls['dettaglioFattura'].value;
     this.dettagli[this.index].oSpesainvestimento = this.elencoSpese.find(spesa => spesa.id === this.formDettaglio.controls['oSpesainvestimento'].value);
     this.dettagli[this.index].oPreventivo = this.elencoPreventivi.find(preventivo => preventivo.id === this.formDettaglio.controls['oPreventivo'].value);
-    this.dettagli[this.index].oAliquotaiva = this.elencoAliquote.find(aliquota => aliquota.id === this.formDettaglio.controls['oAliquotaiva'].value);
  
     this.visible2 = false;
     this.formDettaglio.reset();

@@ -1,25 +1,24 @@
 import { Component } from '@angular/core';
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { AutoreService } from '../autore.service';
+import { CasaEditriceService } from '../ce.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { AutoreModel } from 'src/app/shared/model/autore-model';
+import { CasaEditriceModel } from 'src/app/shared/model/ce.model';
 
 @Component({
-  selector: 'app-modifica-autore',
-  templateUrl: './modifica-autore.component.html',
-  styleUrls: ['./modifica-autore.component.scss'],
+  selector: 'app-modifica-ce',
+  templateUrl: './modifica-ce.component.html',
+  styleUrls: ['./modifica-ce.component.scss'],
   providers: [ConfirmationService, MessageService]
 })
-export class ModificaAutoreComponent {
-  constructor(private service: AutoreService, private route: ActivatedRoute, private router: Router, private messageService: MessageService) { }
+export class ModificaCeComponent {
+  constructor(private service: CasaEditriceService, private route: ActivatedRoute, private router: Router, private messageService: MessageService) { }
 
   formModifica!: FormGroup;
 
   ngOnInit(): void {
     this.formModifica = new FormGroup({
       nome: new FormControl('', [Validators.required]),
-      cognome: new FormControl('', [Validators.required]),
     })
 
     this.route.params.subscribe(
@@ -28,7 +27,6 @@ export class ModificaAutoreComponent {
         this.service.getById(id).subscribe(
           (object) => {
             this.formModifica.controls['nome'].setValue(object.nome);
-            this.formModifica.controls['cognome'].setValue(object.cognome);
           }
         )
       }
@@ -43,17 +41,16 @@ export class ModificaAutoreComponent {
         idAutore = params['id'];
       }
     )
-    const autore: AutoreModel = {
+    const ce: CasaEditriceModel = {
       id: idAutore,
       nome: this.formModifica.controls['nome'].value,
-      cognome: this.formModifica.controls['cognome'].value,
     }
 
     if (this.formModifica.valid) {
-      this.service.save(autore).subscribe(
+      this.service.save(ce).subscribe(
         () => {
-          this.router.navigate(['autore/elenco'])
-          localStorage.setItem('autore', "1")
+          this.router.navigate(['ce/elenco'])
+          localStorage.setItem('ce', "1")
         }
       )
     } else {
@@ -63,9 +60,7 @@ export class ModificaAutoreComponent {
 
   inputNotEmpty(): boolean {
     const nome = this.formModifica.controls['nome'].value;
-    const cognome = this.formModifica.controls['cognome'].value;
 
-    return !nome || !cognome;
+    return !nome;
   }
 }
-

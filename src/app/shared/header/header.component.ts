@@ -59,18 +59,18 @@ export class HeaderComponent implements OnInit {
           ]
         },
         {
-          label: 'Sottocategoria',
-          icon: 'pi pi-fw pi-table',
+          label: 'Casa Editrice',
+          icon: 'pi pi-fw pi-bookmark',
           items: [
             {
               label: 'Nuovo',
               icon: 'pi pi-fw pi-plus',
-              routerLink: 'sottocategoria/nuovo'
+              routerLink: 'ce/nuovo'
             },
             {
               label: 'Elenco',
               icon: 'pi pi-fw pi-list',
-              routerLink: 'sottocategoria/elenco'
+              routerLink: 'ce/elenco'
             }
           ]
         },
@@ -109,29 +109,19 @@ export class HeaderComponent implements OnInit {
       ],
     },
     {
-      label: 'Budget',
-      icon: 'pi pi-fw pi-money-bill',
+      label: 'Libri',
+      icon: 'pi pi-fw pi-book',
       items: [
         {
-          label: 'Definizione',
-          icon: 'pi pi-fw pi-euro',
-          routerLink: 'budget/definizione'
+          label: 'Nuovo',
+          icon: 'pi pi-fw pi-plus',
+          routerLink: 'libro/nuovo'
         },
         {
-          label: 'Avanzamento',
-          icon: 'pi pi-fw pi-chart-bar',
-          routerLink: 'budget/avanzamento'
+          label: 'Elenco',
+          icon: 'pi pi-fw pi-list',
+          routerLink: 'libro/elenco'
         },
-        {
-          label: 'Riconciliazione',
-          icon: 'pi pi-fw pi-wallet',
-          routerLink: 'budget/riconciliazione'
-        },
-        {
-          label: 'Spesa Investimento',
-          icon: 'pi pi-fw pi-cart-plus',
-          routerLink: 'budget/spesainvestimento'
-        }
       ]
     },
     {

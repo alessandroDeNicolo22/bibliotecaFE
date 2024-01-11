@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { FatturaPassivaService } from '../fattura-passiva.service';
-import { AliquotaService } from 'src/app/archivi/aliquota-iva/aliquota.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ConfirmationService, MessageService } from 'primeng/api';
@@ -9,7 +8,6 @@ import { FornitoreService } from 'src/app/archivi/fornitore/fornitore.service';
 import { SpesaInvestimentoService } from 'src/app/budget/spesainvestimento/spesainvestimento.service';
 import { FornitoreModel } from 'src/app/shared/model/fornitore.model';
 import { SpesaInvestimentoModel } from 'src/app/shared/model/spesainvestimento.model';
-import { AliquotaivaModel } from 'src/app/shared/model/aliquotaiva.model';
 import { PreventivoService } from 'src/app/preventivo/preventivo.service';
 import { PreventivoModel } from 'src/app/shared/model/preventivo-model';
 import { FatturaPassivaModel } from 'src/app/shared/model/fattura-passiva.model';
@@ -26,13 +24,11 @@ export class NuovaFatturaComponent {
     private router: Router,
     private messageService: MessageService,
     private fornService: FornitoreService,
-    private aliService: AliquotaService,
     private spesaService: SpesaInvestimentoService,
     private preventivoService: PreventivoService) { }
 
   formNuovo!: FormGroup;
   elencoFornitori!: FornitoreModel[];
-  elencoAliquote!: AliquotaivaModel[];
   elencoSpese!: SpesaInvestimentoModel[];
   elencoPreventivi!: PreventivoModel[];
   formDettaglio!: FormGroup;
@@ -76,9 +72,6 @@ export class NuovaFatturaComponent {
     })
     this.spesaService.getLista().subscribe((elenco: SpesaInvestimentoModel[]) => {
       this.elencoSpese = elenco;
-    })
-    this.aliService.getLista().subscribe((elenco: AliquotaivaModel[]) => {
-      this.elencoAliquote = elenco;
     })
   }
 
@@ -175,7 +168,6 @@ export class NuovaFatturaComponent {
     this.dettagli[this.index].dettaglioFattura = this.formDettaglio.controls['dettaglioFattura'].value;
     this.dettagli[this.index].oSpesaInvestimento = this.elencoSpese.find(spesa => spesa.id === this.formDettaglio.controls['oSpesainvestimento'].value);
     this.dettagli[this.index].oPreventivo = this.elencoPreventivi.find(preventivo => preventivo.id === this.formDettaglio.controls['oPreventivo'].value);
-    this.dettagli[this.index].oAliquotaiva = this.elencoAliquote.find(aliquota => aliquota.id === this.formDettaglio.controls['oAliquotaiva'].value);
  
     this.visible2 = false;
     this.formDettaglio.reset();

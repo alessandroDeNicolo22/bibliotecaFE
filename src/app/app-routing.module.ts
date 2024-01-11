@@ -25,13 +25,13 @@ const routes: Routes = [
     canActivate: [AuthenticationGuard, supervisorGuard]
   },
   {
-    path: 'sottocategoria',
-    loadChildren: () => import('./archivi/sottocategoria/sottocategoria.module').then(m => m.SottocategoriaModule),
+    path: 'ce',
+    loadChildren: () => import('./archivi/casaeditrice/ce.module').then(m => m.CasaEditriceModule),
     canActivate: [AuthenticationGuard, supervisorGuard]
   },
   {
-    path: 'budget',
-    loadChildren: () => import('./budget/budget.module').then(m => m.BudgetModule),
+    path: 'libro',
+    loadChildren: () => import('./archivi/libro/libro.module').then(m => m.LibroModule),
     canActivate: [AuthenticationGuard]
   },
   {
