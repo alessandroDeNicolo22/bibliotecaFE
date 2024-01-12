@@ -1,0 +1,37 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <p-card header="Modifica Genere" [style]="{ width: '700px', height: '700px' }"
+        class="d-flex align-items-center justify-content-center" subheader="Modifica il genere selezionato.">
+        <ng-template pTemplate="header">
+          <img alt="Card" src="https://primefaces.org/cdn/primeng/images/usercard.png" />
+        </ng-template>
+        <div class="row">
+          <div class="col text-center py-4">
+            <br>
+            <form [formGroup]="formModifica">
+              <div class="row">
+                <div class="col-md-6">
+                  <label for="nome" style="display: block; font-weight: bold;">Nome Genere</label>
+                  <input type="text" pInputText placeholder="Nome Genere" formControlName="nome"
+                    [style]="{'width': '100%'}" inputId="nome" />
+                  <small class="p error block"
+                    *ngIf="formModifica.get('nome')?.invalid && formModifica.get('nome')?.dirty"
+                    style="color: red;">Inserire correttamente il nome del genere!</small>
+                </div>
+              </div>
+            </form>
+            <br><br>
+            <p-button label="Salva" icon="pi pi-check" styleClass="p-button-outlined p-button-success"
+              (onClick)="submitForm()"></p-button>
+            <p-button label="Indietro" icon="pi pi-times" styleClass="p-button-outlined p-button-secondary"
+              [style]="{ 'margin-left': '.5em' }" routerLink="../../elenco"></p-button>
+          </div>
+        </div>
+      </p-card>
+      <p-toast [showTransformOptions]="'translateY(100%)'" [showTransitionOptions]="'1000ms'"
+        [hideTransitionOptions]="'1000ms'" [showTransformOptions]="'translateX(100%)'" position="top-center"
+        [style]="{'width': '30%', 'font-weight':'bold'}"></p-toast>
+    </div>
+  </div>
+</div>

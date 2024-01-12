@@ -1,39 +1,34 @@
 import { Component, ViewChild } from '@angular/core';
-import { FornitoreModel } from 'src/app/shared/model/fornitore.model';
-import { FornitoreService } from '../fornitore.service';
 import { ConfirmEventType, ConfirmationService, MessageService } from 'primeng/api';
 import { PaginatorState } from 'primeng/paginator';
 import { Table } from 'primeng/table';
+import { GenereModel } from 'src/app/shared/model/genere.model';
+import { GenereService } from '../genere.service';
 interface Column {
   field: string;
   header: string;
 }
 @Component({
-  selector: 'app-elenco-fornitori',
-  templateUrl: './elenco-fornitori.component.html',
-  styleUrls: ['./elenco-fornitori.component.scss'],
+  selector: 'app-elenco-generi',
+  templateUrl: './elenco-generi.component.html',
+  styleUrls: ['./elenco-generi.component.scss'],
   providers: [ConfirmationService, MessageService]
 })
-export class ElencoFornitoriComponent {
+export class ElencoGeneriComponent {
   @ViewChild('dt1') dt1!: Table;
   
-  elenco!: FornitoreModel[];
+  elenco!: GenereModel[];
   pageIndex: number = 0;
   pageSize: number = 3;
   totRows !: number;
   searchKeyword: string = '';
   cols: Column[] = [
-    { field: 'ragioneSociale', header: 'Ragione Sociale' },
-    { field: 'indirizzo', header: 'Indirizzo' },
-    { field: 'citta', header: 'Città' },
-    { field: 'cap', header: 'Cap' },
-    { field: 'provincia', header: 'Provincia' },
-    { field: 'partitaIva', header: 'Partita Iva' },
+    { field: 'nome', header: 'Nome' },
     { field: 'edit', header: '' },
     { field: 'delete', header: '' }
   ];
 
-  constructor(private service: FornitoreService, private confirmationService: ConfirmationService, private messageService: MessageService) { }
+  constructor(private service: GenereService, private confirmationService: ConfirmationService, private messageService: MessageService) { }
 
   ngOnInit() {
     this.recuperaElenco();
@@ -48,12 +43,12 @@ export class ElencoFornitoriComponent {
         }
         this.elenco = risposta.content;
         this.totRows = risposta.totalElements;
-        if (localStorage.getItem('fornitore') === 'ok') {
-          this.messageService.add({ severity: 'success', summary: 'Confermato', detail: 'Fornitore aggiunto con successo!' });
-          localStorage.removeItem('fornitore');
-        } else if (localStorage.getItem('fornitore') === "1") {
-          this.messageService.add({ severity: 'success', summary: 'Confermato', detail: 'Fornitore modificato con successo!' });
-          localStorage.removeItem('fornitore')
+        if (localStorage.getItem('genere') === 'ok') {
+          this.messageService.add({ severity: 'success', summary: 'Confermato', detail: 'Genere aggiunto con successo!' });
+          localStorage.removeItem('genere');
+        } else if (localStorage.getItem('genere') === "1") {
+          this.messageService.add({ severity: 'success', summary: 'Confermato', detail: 'Genere modificato con successo!' });
+          localStorage.removeItem('genere')
         }
       }
     )
@@ -61,12 +56,12 @@ export class ElencoFornitoriComponent {
 
 
 
-  deleteFornitore(id: number) {
+  deleteGenere(id: number) {
     this.service.checkElimina(id).subscribe(
       (condizione) => {
         if (condizione === true) {
           this.confirmationService.confirm({
-            message: 'Sei sicuro di eliminare questo Fornitore?',
+            message: 'Sei sicuro di eliminare questo genere?',
             header: 'Conferma Eliminazione',
             icon: 'pi pi-info-circle',
             accept: () => {
@@ -75,7 +70,7 @@ export class ElencoFornitoriComponent {
                   if (this.elenco.length === 1) {
                     this.pageIndex--;
                   }
-                  this.messageService.add({ severity: 'success', summary: 'Confermato', detail: 'Fornitore eliminato con successo!' });
+                  this.messageService.add({ severity: 'success', summary: 'Confermato', detail: 'Genere eliminato con successo!' });
                   this.recuperaElenco();
                 })
 
@@ -83,7 +78,7 @@ export class ElencoFornitoriComponent {
             reject: (type: ConfirmEventType) => {
               switch (type) {
                 case ConfirmEventType.REJECT:
-                  this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'Fornitore non eliminato!' });
+                  this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'Genere non eliminato!' });
                   break;
                 case ConfirmEventType.CANCEL:
                   this.messageService.add({ severity: 'warn', summary: 'Cancelled', detail: 'Richiesta cancellata!' });
@@ -92,7 +87,7 @@ export class ElencoFornitoriComponent {
             }
           });
         } else {
-          this.messageService.add({ severity: 'warn', summary: 'Non eliminabile', detail: 'Fornitore non eliminabile!' });
+          this.messageService.add({ severity: 'warn', summary: 'Non eliminabile', detail: 'Genere non eliminabile!' });
         }
       }
     )

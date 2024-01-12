@@ -1,4 +1,4 @@
-import { FornitoreModel } from "./fornitore.model";
+// import { FornitoreModel } from "./genere.model";
 
 export class FatturaPassivaModel {
 
@@ -6,5 +6,5 @@ export class FatturaPassivaModel {
     data!: Date;
     numero!: string;
     descrizione!: string;
-    oFornitore!: FornitoreModel | undefined;
+    // oFornitore!: FornitoreModel | undefined;
 }
