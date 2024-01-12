@@ -43,18 +43,18 @@ export class HeaderComponent implements OnInit {
           ],
         },
         {
-          label: 'Fornitore',
+          label: 'Genere',
           icon: 'pi pi-fw pi-truck',
           items: [
             {
               label: 'Nuovo',
               icon: 'pi pi-fw pi-plus',
-              routerLink: 'fornitore/nuovo'
+              routerLink: 'genere/nuovo'
             },
             {
               label: 'Elenco',
               icon: 'pi pi-fw pi-list',
-              routerLink: 'fornitore/elenco'
+              routerLink: 'genere/elenco'
             }
           ]
         },

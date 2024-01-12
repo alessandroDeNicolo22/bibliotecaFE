@@ -20,8 +20,8 @@ const routes: Routes = [
     canActivate: [AuthenticationGuard]
   },
   {
-    path: 'fornitore',
-    loadChildren: () => import('./archivi/fornitore/fornitore.module').then(m => m.FornitoreModule),
+    path: 'genere',
+    loadChildren: () => import('./archivi/genere/genere.module').then(m=>m.GenereModule),
     canActivate: [AuthenticationGuard, supervisorGuard]
   },
   {
@@ -44,21 +44,21 @@ const routes: Routes = [
     loadChildren: () => import('./archivi/progetto/progetto.module').then(m => m.ProgettoModule),
     canActivate:[AuthenticationGuard]
   },
-  {
-    path: 'ordineacquisto',
-    loadChildren: () => import('./ordineacquisto/ordineacquisto.module').then(m => m.OrdineAcquistoModule),
-    canActivate:[AuthenticationGuard, supervisorGuard]
-  },
-  {
-    path: 'preventivo',
-    loadChildren: () => import('./preventivo/preventivo.module').then(m => m.PreventivoModule),
-    canActivate:[AuthenticationGuard]
-  },
-  {
-    path: 'fatturapassiva',
-    loadChildren: () => import('./fattura-passiva/fattura-passiva.module').then(m => m.FatturaPassivaModule),
-    canActivate:[AuthenticationGuard, supervisorGuard]
-  },
+  // {
+  //   path: 'ordineacquisto',
+  //   loadChildren: () => import('./ordineacquisto/ordineacquisto.module').then(m => m.OrdineAcquistoModule),
+  //   canActivate:[AuthenticationGuard, supervisorGuard]
+  // },
+  // {
+  //   path: 'preventivo',
+  //   loadChildren: () => import('./preventivo/preventivo.module').then(m => m.PreventivoModule),
+  //   canActivate:[AuthenticationGuard]
+  // },
+  // {
+  //   path: 'fatturapassiva',
+  //   loadChildren: () => import('./fattura-passiva/fattura-passiva.module').then(m => m.FatturaPassivaModule),
+  //   canActivate:[AuthenticationGuard, supervisorGuard]
+  // },
   {
     path:'utente',
     loadChildren: ()=> import('./authentication/authentication.module').then(m=> m.AuthenticationModule),

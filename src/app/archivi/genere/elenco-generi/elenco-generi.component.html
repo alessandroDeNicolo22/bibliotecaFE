@@ -4,7 +4,7 @@
         <p-table #dt1 [columns]="cols" [value]="elenco" [tableStyle]="{ 'min-width': '50rem', 'width':'100%' }" [scrollHeight]="'400px'" [scrollable]="true" styleClass="p-datatable-striped" [globalFilterFields]="['ragioneSociale']" >
             <ng-template pTemplate="caption" >
                 <div class="header" >
-                    <h1 style="font-weight: bold;">Elenco Fornitori</h1>
+                    <h1 style="font-weight: bold;">Elenco Generi</h1>
                     <span class="p-input-icon-left ml-auto">
                         <i class="pi pi-search"></i>
                         <input pInputText type="text" (input)="dt1.filterGlobal($any($event.target).value, 'contains')" placeholder="Filtra per Ragione Sociale" />
@@ -30,7 +30,7 @@
                   </p-button>
                 </ng-container>              
                 <ng-container *ngIf="col.field === 'delete'">
-                  <p-button (click)="deleteFornitore(rowData.id)" icon="pi pi-trash" class="p-button-danger" pTooltip="Elimina" styleClass="p-button-rounded p-button-danger p-button-outlined"></p-button>
+                  <p-button (click)="deleteGenere(rowData.id)" icon="pi pi-trash" class="p-button-danger" pTooltip="Elimina" styleClass="p-button-rounded p-button-danger p-button-outlined"></p-button>
                 </ng-container>
               </td>
             </tr>
