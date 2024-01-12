@@ -47,6 +47,7 @@ export class ModificaAutoreComponent {
       id: idAutore,
       nome: this.formModifica.controls['nome'].value,
       cognome: this.formModifica.controls['cognome'].value,
+      nomeCognome : this.formModifica.controls['nomeCognome'].value
     }
 
     if (this.formModifica.valid) {

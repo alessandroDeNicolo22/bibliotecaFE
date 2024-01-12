@@ -21,7 +21,10 @@
           <ng-template pTemplate="body" let-rowData let-columns="columns">
             <tr>
               <td *ngFor="let col of columns" style="font-size: larger;">
-                {{ rowData[col.field] }}
+                <p *ngIf="col.header === 'Autore'">{{ rowData.oAutore.nome + " " + rowData.oAutore.cognome }}</p>
+                <p *ngIf="col.header === 'Casa Editrice'">{{ rowData.oCasaeditrice.nome }}</p>
+                <p *ngIf="col.header === 'Genere'">{{ rowData.oGenere.nome }}</p>
+                <p *ngIf="col.header !== 'Autore' && col.header !== 'Casa Editrice' && col.header !== 'Genere'">{{ rowData[col.field]}}</p>
                 <ng-container *ngIf="col.field === 'edit'">
                   <p-button icon="pi pi-pencil" pTooltip="Modifica" routerLink="../modifica/{{rowData.id}}" styleClass="p-button-rounded p-button-outlined">
                   </p-button>

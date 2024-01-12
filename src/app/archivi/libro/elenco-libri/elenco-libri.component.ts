@@ -51,11 +51,11 @@ export class ElencoLibriComponent {
 
         if (localStorage.getItem('condizione') === 'aggiunto') {
           this.message.add(
-            { severity: 'success', summary: 'Eseguita', detail: 'Progetto aggiunto con successo' }
+            { severity: 'success', summary: 'Eseguita', detail: 'Libro aggiunto con successo' }
           )
         } else if (localStorage.getItem('condizione') === 'modificato') {
           this.message.add(
-            { severity: 'success', summary: 'Eseguita', detail: 'Progetto modificato con successo' }
+            { severity: 'success', summary: 'Eseguita', detail: 'Libro modificato con successo' }
           )
         }
         localStorage.removeItem('condizione');

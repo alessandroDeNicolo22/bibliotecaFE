@@ -1,1 +1,66 @@
-<p>nuovo-libro works!</p>
+<div class="container-fluid">
+    <div class="row">
+      <div class="col">
+        
+          <p-card header="Nuovo Libro" [style]="{ width: '600px', height: 'auto' }"
+            class="d-flex align-items-center justify-content-center" subheader="Inserisci un nuovo Libro.">
+            <ng-template pTemplate="header">
+              <img alt="Card" src="https://primefaces.org/cdn/primeng/images/usercard.png" />
+            </ng-template>
+            <div class="row">
+              <div class="col text-center py-4">
+                <br>
+                <form [formGroup]="formNuovo">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <label for="titolo" style="display: block; font-weight: bold;">Titolo</label>
+                      <input type="text" pInputText [(ngModel)]="formNuovo.value.titolo" id="titolo" formControlName="titolo"
+                  style="width:100%;" />
+                      <small class="p error block"
+                        *ngIf="formNuovo.get('titolo')?.invalid && formNuovo.get('titolo')?.dirty"
+                        style="color: red;">Inserire correttamente il Titolo!</small>
+                    </div>
+                    <div class="col-md-6">
+                      <label for="Fornitore" style="display: block; font-weight: bold;">Autore</label>
+                      <p-dropdown [options]="listAutore" optionLabel="nomeCognome" formControlName="oAutore"
+                      [style]="{'width': '100%'}" inputId="float-label" placeholder="Seleziona un Autore">
+                      </p-dropdown>
+                      <small class="p error block"
+                        *ngIf="formNuovo.get('oAutore')?.invalid && formNuovo.get('oAutore')?.dirty"
+                        style="color: red;">Inserire correttamente un Autore!</small>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="Genere" style="display: block; font-weight: bold;">Genere</label>
+                        <p-dropdown [options]="listGenere" optionLabel="nome" formControlName="oGenere"
+                        [style]="{'width': '100%'}" inputId="float-label" placeholder="Seleziona un Genere">
+                        </p-dropdown>
+                        <small class="p error block"
+                          *ngIf="formNuovo.get('oGenere')?.invalid && formNuovo.get('oGenere')?.dirty"
+                          style="color: red;">Inserire correttamente il Genere!</small>
+                      </div>
+                      <div class="col-md-6">
+                        <label for="Casa Editrice" style="display: block; font-weight: bold;">Casa Editrice</label>
+                        <p-dropdown [options]="listCE" optionLabel="nome" formControlName="oCasaeditrice"
+                        [style]="{'width': '100%'}" inputId="float-label" placeholder="Seleziona un Casaeditrice">
+                        </p-dropdown>
+                        <small class="p error block"
+                          *ngIf="formNuovo.get('oCasaeditrice')?.invalid && formNuovo.get('oCasaeditrice')?.dirty"
+                          style="color: red;">Inserire correttamente la Casa Editrice!</small>
+                      </div>
+                  </div>
+                  <br><br>
+                </form>
+                <br><br>
+                <p-button label="Salva" icon="pi pi-check" styleClass="p-button-outlined p-button-success"
+                  (onClick)="submitForm()" [disabled]="inputNotEmpty()"></p-button>
+                <p-button label="Indietro" icon="pi pi-times" styleClass="p-button-outlined p-button-secondary"
+                  [style]="{ 'margin-left': '.5em' }" routerLink="../elenco"></p-button>
+              </div>
+            </div>
+          </p-card>
+        <p-toast position="top-center" [showTransformOptions]="'translateY(100%)'" [showTransitionOptions]="'1000ms'"
+          [hideTransitionOptions]="'1000ms'" [showTransformOptions]="'translateX(100%)'"
+          [style]="{'width': '30%', 'font-weight':'bold'}"></p-toast>
+      </div>
+    </div>
+  </div>
