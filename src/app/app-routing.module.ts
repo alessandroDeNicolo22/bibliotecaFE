@@ -40,8 +40,8 @@ const routes: Routes = [
     canActivate:[AuthenticationGuard]
   },
   {
-    path: 'progetto',
-    loadChildren: () => import('./archivi/progetto/progetto.module').then(m => m.ProgettoModule),
+    path: 'professore',
+    loadChildren: () => import('./archivi/professore/professore.module').then(m => m.ProfessoreModule),
     canActivate:[AuthenticationGuard]
   },
   // {

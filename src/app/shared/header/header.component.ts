@@ -91,17 +91,17 @@ export class HeaderComponent implements OnInit {
           ]
         },
         {
-          label: 'Progetto',
+          label: 'Professore',
           icon: 'pi pi-fw pi-building',
           items: [
             {
               label: 'Nuovo',
-              routerLink: 'progetto/nuovo',
+              routerLink: 'professore/nuovo',
               icon: 'pi pi-fw pi-plus'
             },
             {
               label: 'Elenco',
-              routerLink: 'progetto/elenco',
+              routerLink: 'professore/elenco',
               icon: 'pi pi-fw pi-list'
             }
           ]

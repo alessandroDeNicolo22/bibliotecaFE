@@ -1,0 +1,53 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <p-toast position="top-center" [showTransformOptions]="'translateY(100%)'" [showTransitionOptions]="'1000ms'"
+        [hideTransitionOptions]="'1000ms'" [showTransformOptions]="'translateX(100%)'"
+        [style]="{'width': '30%', 'font-weight':'bold'}"></p-toast>
+
+
+
+      <p-card header="Aggiungi Professore" [style]="{ width: '700px', height: '700px' }"
+        class="d-flex align-items-center justify-content-center">
+        <ng-template pTemplate="header">
+          <img alt="Card" src="https://primefaces.org/cdn/primeng/images/usercard.png" />
+        </ng-template>
+        <div class="row">
+          <div class="col text-center py-4">
+            <form #form="ngForm">
+
+              <label for="cognome" style="display: block; font-weight: bold;">Cognome</label>
+              <input placeholder="Inserisci il cognome" type="text" class="form-control" pInputText
+                [(ngModel)]="professoreModel.cognome" #cognome="ngModel" name="cognome" required="required" /><br>
+              <p-message severity="error" *ngIf="cognome.invalid && cognome.touched" text="Campo obbligatorio"
+                [style]="{width: '320px', height:'37.6px'}"></p-message>
+
+              <br><br>
+
+              <label for="nome" style="display: block; font-weight: bold;">Nome</label>
+              <input placeholder="Inserisci il nome" type="text" class="form-control" pInputText
+                [(ngModel)]="professoreModel.nome" #nome="ngModel" name="nome" required="required" /><br>
+              <p-message severity="error" *ngIf="nome.invalid && nome.touched" text="Campo obbligatorio"
+                [style]="{width: '320px', height:'37.6px'}"></p-message>
+
+              <br><br>
+
+              <label for="matricola" style="display: block; font-weight: bold;">Matricola</label>
+              <input placeholder="Inserisci la matricola" type="text" class="form-control" pInputText
+                [(ngModel)]="professoreModel.matricola" #matricola="ngModel" name="matricola" required="required" /><br>
+              <p-message severity="error" *ngIf="matricola.invalid && matricola.touched" text="Campo obbligatorio"
+                [style]="{width: '320px', height:'37.6px'}"></p-message>
+
+              <br><br>
+
+              <p-button label="Salva" icon="pi pi-check" styleClass="p-button-outlined p-button-success"
+                (onClick)="aggiungi()"></p-button>
+              <p-button label="Indietro" icon="pi pi-times" styleClass="p-button-outlined p-button-secondary"
+                [style]="{ 'margin-left': '.5em' }" routerLink="../elenco"></p-button>
+            </form>
+          </div>
+        </div>
+      </p-card>
+    </div>
+  </div>
+</div>

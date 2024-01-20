@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ConfirmEventType, ConfirmationService, MessageService } from 'primeng/api';
-import { ProgettoService } from '../progetto.service';
 import { Router } from '@angular/router';
 import { Paginator, PaginatorState } from 'primeng/paginator';
-import { ProgettoModel } from 'src/app/shared/model/progetto-model';
+import { ProfessoreService } from '../professore.service';
+import { ProfessoreModel } from 'src/app/shared/model/professore-model';
 
 interface Column {
   field: string;
@@ -11,23 +11,24 @@ interface Column {
 }
 
 @Component({
-  selector: 'app-elenco-progetti',
-  templateUrl: './elenco-progetti.component.html',
-  styleUrls: ['./elenco-progetti.component.scss'],
+  selector: 'app-elenco-professori',
+  templateUrl: './elenco-professori.component.html',
+  styleUrls: ['./elenco-professori.component.scss'],
   providers: [ConfirmationService, MessageService]
 })
-export class ElencoProgettiComponent implements OnInit {
+export class ElencoProfessoriComponent implements OnInit {
 
-  constructor(private progettoService: ProgettoService, private router: Router, private message: MessageService,
+  constructor(private professoriService: ProfessoreService, private router: Router, private message: MessageService,
     private confirmationService: ConfirmationService) { }
 
   @ViewChild(Paginator) paginator!: Paginator;
 
-  elencoProgetti: ProgettoModel[] = [];
+  elencoProfessori: ProfessoreModel[] = [];
 
   cols: Column[] = [
-    { field: 'codice', header: 'Codice' },
-    { field: 'progetto', header: 'Progetto' },
+    { field: 'cognome', header: 'Cognome' },
+    { field: 'nome', header: 'Nome' },
+    { field: 'matricola', header: 'Matricola' },
     { field: 'edit', header: '' },
     { field: 'delete', header: '' }
   ];
@@ -43,21 +44,21 @@ export class ElencoProgettiComponent implements OnInit {
   }
 
   recuperaElenco() {
-    this.progettoService.getPage(this.pageIndex, this.pageSize).subscribe(
+    this.professoriService.getPage(this.pageIndex, this.pageSize).subscribe(
       (risposta: any) => {
         if(risposta.totalElements === 0 ){
           this.message.add({ severity: 'warn', summary: 'Attenzione', detail: 'Non ci sono elementi!' });
         }
-        this.elencoProgetti = risposta.content;
+        this.elencoProfessori = risposta.content;
         this.totRows = risposta.totalElements;
 
         if (localStorage.getItem('condizione') === 'aggiunto') {
           this.message.add(
-            { severity: 'success', summary: 'Eseguita', detail: 'Progetto aggiunto con successo' }
+            { severity: 'success', summary: 'Eseguita', detail: 'Professore aggiunto con successo' }
           )
         } else if (localStorage.getItem('condizione') === 'modificato') {
           this.message.add(
-            { severity: 'success', summary: 'Eseguita', detail: 'Progetto modificato con successo' }
+            { severity: 'success', summary: 'Eseguita', detail: 'Professore modificato con successo' }
           )
         }
         localStorage.removeItem('condizione');
@@ -72,27 +73,27 @@ export class ElencoProgettiComponent implements OnInit {
     if (event.first !== undefined) {
       this.pageIndex = event.first / this.pageSize;
     }
-    this.progettoService.getPage(this.pageIndex, this.pageSize).subscribe((risposta: any) => {
-      this.elencoProgetti = risposta.content;
+    this.professoriService.getPage(this.pageIndex, this.pageSize).subscribe((risposta: any) => {
+      this.elencoProfessori = risposta.content;
       this.totRows = risposta.totalElements;
     });
   }
 
   checkDelete(id: number) {
-    this.progettoService.checkElimina(id).subscribe(
+    this.professoriService.checkElimina(id).subscribe(
       (risposta: Boolean) => {
         if (risposta) {
-          this.deleteProgetto(id);
+          this.deleteProfessore(id);
         } else {
           this.message.add(
-            { severity: 'error', summary: 'Attenzione', detail: 'Progetto non eliminabile' }
+            { severity: 'error', summary: 'Attenzione', detail: 'Professore non eliminabile' }
           )
         }
       }
     )
   }
 
-  deleteProgetto(id: number) {
+  deleteProfessore(id: number) {
 
 
     this.confirmationService.confirm({
@@ -100,10 +101,10 @@ export class ElencoProgettiComponent implements OnInit {
       header: 'Attenzione',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-        this.progettoService.elimina(id).subscribe(
+        this.professoriService.elimina(id).subscribe(
           () => {
             this.message.add(
-              { severity: 'success', summary: 'Eliminata', detail: 'Progetto eliminato con successo' }
+              { severity: 'success', summary: 'Eliminata', detail: 'Professore eliminato con successo' }
             )
             this.recuperaElenco();
           }
@@ -112,7 +113,7 @@ export class ElencoProgettiComponent implements OnInit {
       reject: (type: ConfirmEventType) => {
         switch (type) {
           case ConfirmEventType.REJECT:
-            this.message.add({ severity: 'error', summary: 'Annullata', detail: 'Progetto non eliminato' });
+            this.message.add({ severity: 'error', summary: 'Annullata', detail: 'Professore non eliminato' });
             break;
           case ConfirmEventType.CANCEL:
             this.message.add({ severity: 'warn', summary: 'Annullata', detail: 'Operazione annullata' });
